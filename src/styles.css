@@ -1,0 +1,96 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Helvetica, Arial, sans-serif;
+
+  border: 1px solid red;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("./fonts/SF-Pro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+#content {
+  height: 100vh;
+  padding: 80px 30px;
+  position: relative;
+}
+
+.hourly-forecast-div,
+.daily-forecast-div {
+  height: 40%; /* This will be changed once content takes its place */
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.icon-title-div {
+  display: flex;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid gray;
+}
+
+.hour-by-hour-div,
+.day-by-day-div {
+  background-color: aquamarine;
+  height: 100%;
+  width: 100%;
+}
+
+.footer-div {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 5rem;
+  background-color: brown;
+
+}
+/* If statement -> if code inside () is true, media query will kick in */
+@media (max-width: 640px) {
+  /* local-weather.js */
+  .temp-main-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .city-name {
+    font-size: 2.2rem;
+  }
+  .temp {
+    font-size: 6rem;
+    font-weight: 300;
+    padding-bottom: 0;
+  }
+  .weather {
+    font-size: 1.5rem;
+  }
+  .high-low-temp {
+    font-size: 1.5rem;
+  }
+
+  /* hourly-forecast.js */
+  .hourly-forecast-title,
+  .daily-forecast-title {
+    height: 1.6em;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    flex-grow: 1;
+  }
+
+  .icon {
+    height: 1.6rem;
+  }
+}

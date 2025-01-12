@@ -1,0 +1,38 @@
+// 2
+import { dailyForecast } from "./daily-forecast";
+import clockIcon from "../project-icons/clock-icon.png";
+
+export function hourlyForecast() {
+  // 1. Main div
+  const hourlyForecastDiv = document.createElement("div");
+  hourlyForecastDiv.classList.add("hourly-forecast-div");
+
+  // 2. Div that holds img and title
+  const iconTitleDiv = document.createElement("div");
+  iconTitleDiv.classList.add("icon-title-div");
+
+  // 2.2 Hourly forecast icon + header
+  const clockImage = document.createElement("img");
+  clockImage.src = clockIcon;
+  clockImage.classList.add("icon");
+
+  const hourlyForecastTitle = document.createElement("p");
+  hourlyForecastTitle.classList.add("hourly-forecast-title");
+  hourlyForecastTitle.textContent = "HOURLY FORECAST";
+
+  // 3. Div that holds hour by hour smaller divs
+  const hourByHourDiv = document.createElement("div");
+  hourByHourDiv.classList.add("hour-by-hour-div");
+
+  iconTitleDiv.appendChild(clockImage);
+  iconTitleDiv.appendChild(hourlyForecastTitle);
+
+  hourlyForecastDiv.appendChild(iconTitleDiv);
+
+  hourlyForecastDiv.appendChild(hourByHourDiv);
+
+  content.appendChild(hourlyForecastDiv);
+
+  // Call Daily forecast function
+  dailyForecast();
+}
