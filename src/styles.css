@@ -33,6 +33,7 @@
   flex-direction: column;
   margin-bottom: 10px;
 
+  background-color: rgba(0, 0, 255, 0.404);
 }
 
 .icon-title-div {
@@ -48,8 +49,11 @@
   height: 100%;
   width: 100%;
 
-  
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  display: flex;
+  gap: 10px; 
 }
 
 .hour-by-hour-div {
