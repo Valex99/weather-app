@@ -26,12 +26,13 @@
 .daily-forecast-div,
 .wind-map-div {
   /*height: 40%; /* This will be changed once content takes its place */
-  height: 300px;
+  /* Height: 300px removed */
   padding: 15px;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+
 }
 
 .icon-title-div {
@@ -46,6 +47,13 @@
   background-color: aquamarine;
   height: 100%;
   width: 100%;
+
+  
+  overflow: hidden;
+}
+
+.hour-by-hour-div {
+  display: flex;
 }
 
 .footer-div {
@@ -70,6 +78,19 @@
   font-size: 30px;
   justify-content: center;
   height: 2rem;
+}
+
+/* Each hour div */
+.container-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+}
+
+.container-div img {
+  height: 1.5rem;
 }
 
 /* If statement -> if code inside () is true, media query will kick in */
