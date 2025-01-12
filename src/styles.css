@@ -17,14 +17,16 @@
 }
 
 #content {
-  height: 100vh;
-  padding: 80px 30px;
+  /*height: 100vh;*/
+  padding: 80px 20px;
   position: relative;
 }
 
 .hourly-forecast-div,
-.daily-forecast-div {
-  height: 40%; /* This will be changed once content takes its place */
+.daily-forecast-div,
+.wind-map-div {
+  /*height: 40%; /* This will be changed once content takes its place */
+  height: 300px;
   padding: 15px;
   border-radius: 20px;
   display: flex;
@@ -39,22 +41,37 @@
 }
 
 .hour-by-hour-div,
-.day-by-day-div {
+.day-by-day-div,
+.wind-map {
   background-color: aquamarine;
   height: 100%;
   width: 100%;
 }
 
 .footer-div {
+  padding: 10px 20px;
   position: fixed;
   bottom: 0;
   left: 0;
 
   width: 100vw;
   height: 5rem;
-  background-color: brown;
+  background-color: rgb(42, 124, 165);
 
+  display: flex;
+  gap: 1rem;
 }
+
+.dots-menu {
+  /* Experimental with dots*/
+  display: flex;
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 30px;
+  justify-content: center;
+  height: 2rem;
+}
+
 /* If statement -> if code inside () is true, media query will kick in */
 @media (max-width: 640px) {
   /* local-weather.js */
@@ -82,7 +99,8 @@
 
   /* hourly-forecast.js */
   .hourly-forecast-title,
-  .daily-forecast-title {
+  .daily-forecast-title,
+  .wind-title {
     height: 1.6em;
     display: flex;
     align-items: center;
@@ -92,5 +110,10 @@
 
   .icon {
     height: 1.6rem;
+  }
+
+  /* Footer */
+  .footer-icon {
+    height: 2rem;
   }
 }

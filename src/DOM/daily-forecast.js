@@ -1,7 +1,6 @@
 // 3
 import calendarIcon from "../project-icons/calendar-icon.png";
-import { content } from "./local-weather";
-
+import { windMap } from "./wind-map";
 
 function dailyForecast() {
   // 1. Main div
@@ -19,7 +18,7 @@ function dailyForecast() {
 
   const dailyForecastTitle = document.createElement("p");
   dailyForecastTitle.classList.add("daily-forecast-title");
-  dailyForecastTitle.textContent = "DAILY FORECAST";
+  dailyForecastTitle.textContent = "10-DAY FORECAST";
 
   // 3. Div that holds hour by hour smaller divs
   const dayByDayDiv = document.createElement("div");
@@ -33,6 +32,8 @@ function dailyForecast() {
   dailyForecastDiv.appendChild(dayByDayDiv);
 
   content.appendChild(dailyForecastDiv);
+
+  windMap();
 }
 
 export { dailyForecast };
