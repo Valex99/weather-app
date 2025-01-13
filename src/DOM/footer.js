@@ -1,6 +1,7 @@
 import { content } from "./local-weather";
 import mapIcon from "../project-icons/map-outline.png";
 import menuIcon from "../project-icons/menu-icon.png";
+import "../styles/footer.css";
 
 export function createFooter() {
   const footerDiv = document.createElement("div");

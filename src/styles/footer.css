@@ -1,0 +1,25 @@
+.footer-div {
+  padding: 10px 20px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 5rem;
+  background-color: rgb(42, 124, 165);
+  display: flex;
+  gap: 1rem;
+}
+
+.footer-icon {
+  height: 2rem;
+}
+
+.dots-menu {
+  /* Experimental with dots*/
+  display: flex;
+  flex-grow: 1;
+  font-weight: bold;
+  font-size: 30px;
+  justify-content: center;
+  height: 2rem;
+}

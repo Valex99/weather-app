@@ -1,6 +1,8 @@
 // 1
 import { hourlyForecast } from "./hourly-forecast";
 import { createFooter } from "./footer";
+import '../styles/local-weather.css';
+
 
 const content = document.getElementById("content");
 content.classList.add("content");
@@ -11,6 +13,10 @@ function localWeather() {
 
   const cityName = document.createElement("p");
   cityName.classList.add("city-name");
+
+  // Add div weather-details
+  const weatherDetails = document.createElement("div");
+  weatherDetails.classList.add("weather-details");
 
   const temperature = document.createElement("h1");
   temperature.classList.add("temp");
@@ -26,12 +32,26 @@ function localWeather() {
   weather.textContent = "Sunny";
   highLowTemp.textContent = "H:1° L:-3°";
 
+  weatherDetails.appendChild(temperature);
+  weatherDetails.appendChild(weather);
+  weatherDetails.appendChild(highLowTemp);
+
   tempMainDiv.appendChild(cityName);
-  tempMainDiv.appendChild(temperature);
-  tempMainDiv.appendChild(weather);
-  tempMainDiv.appendChild(highLowTemp);
+  //tempMainDiv.appendChild(temperature);
+  //tempMainDiv.appendChild(weather);
+  //tempMainDiv.appendChild(highLowTemp);
+  tempMainDiv.appendChild(weatherDetails);
 
   content.appendChild(tempMainDiv);
+
+  // Add event listener on a scroll
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 40) {
+      tempMainDiv.classList.add("shrink");
+    } else {
+      tempMainDiv.classList.remove("shrink");
+    }
+  });
 
   // Create Footer
   createFooter();

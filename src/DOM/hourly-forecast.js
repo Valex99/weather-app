@@ -2,6 +2,7 @@
 import { dailyForecast } from "./daily-forecast";
 import clockIcon from "../project-icons/clock-icon.png";
 import clearIcon from "../weather-icons/clear.png";
+import "../styles/hourly-forecast.css";
 
 export function hourlyForecast() {
   // 1. Main div

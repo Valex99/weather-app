@@ -1,0 +1,40 @@
+.hourly-forecast-div {
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+    background-color: rgba(0, 0, 255, 0.404);
+}
+
+.hourly-forecast-title {
+    height: 1.6em;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    flex-grow: 1;
+}
+
+.hour-by-hour-div {
+    background-color: aquamarine;
+    height: 100%;
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: flex;
+}
+
+/* Function each day */
+/* Each hour div */
+.container-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 0.5rem;
+  }
+  
+  .container-div img {
+    height: 1.5rem;
+  }

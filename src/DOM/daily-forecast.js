@@ -2,6 +2,8 @@
 import calendarIcon from "../project-icons/calendar-icon.png";
 import { windMap } from "./wind-map";
 import clearIcon from "../weather-icons/clear.png";
+import "../styles/daily-forecast.css";
+
 
 function dailyForecast() {
   // 1. Main div

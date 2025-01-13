@@ -1,4 +1,4 @@
-/* Global reset */
+/* Global styles */
 * {
   margin: 0;
   padding: 0;
@@ -9,6 +9,14 @@
   border: 1px solid red;
 }
 
+#content {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 80px;
+  padding-top: 80px;
+  position: relative;
+}
+
 @font-face {
   font-family: "SF Pro";
   src: url("./fonts/SF-Pro.ttf") format("truetype");
@@ -16,101 +24,18 @@
   font-style: normal;
 }
 
-#content {
-  /*height: 100vh;*/
-  padding: 80px 20px;
-  position: relative;
-}
-
-.hourly-forecast-div,
-.daily-forecast-div,
-.wind-map-div {
-  /*height: 40%; /* This will be changed once content takes its place */
-  /* Height: 300px removed */
-  padding: 15px;
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 10px;
-
-  background-color: rgba(0, 0, 255, 0.404);
-}
-
+/* Should stay in shared css */
 .icon-title-div {
   display: flex;
   padding-bottom: 10px;
   border-bottom: 0.5px solid gray;
 }
 
-.hour-by-hour-div,
-.day-by-day-div,
-.wind-map {
-  background-color: aquamarine;
-  height: 100%;
-  width: 100%;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  display: flex;
+.icon {
+  height: 1.6rem;
 }
+/**/
 
-.day-by-day-div {
-  flex-direction: column;
-  gap: 10px;
-}
-
-.day-by-day-div p {
-  display: inline;
-}
-
-.day-div {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  justify-content: space-between
-}
-
-.weather-icon {
-  height: 30px;
-}
-
-.footer-div {
-  padding: 10px 20px;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-
-  width: 100vw;
-  height: 5rem;
-  background-color: rgb(42, 124, 165);
-
-  display: flex;
-  gap: 1rem;
-}
-
-.dots-menu {
-  /* Experimental with dots*/
-  display: flex;
-  flex-grow: 1;
-  font-weight: bold;
-  font-size: 30px;
-  justify-content: center;
-  height: 2rem;
-}
-
-/* Each hour div */
-.container-div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-}
-
-.container-div img {
-  height: 1.5rem;
-}
 
 /* If statement -> if code inside () is true, media query will kick in */
 @media (max-width: 640px) {
@@ -138,22 +63,11 @@
   }
 
   /* hourly-forecast.js */
-  .hourly-forecast-title,
-  .daily-forecast-title,
   .wind-title {
     height: 1.6em;
     display: flex;
     align-items: center;
     padding-left: 10px;
     flex-grow: 1;
-  }
-
-  .icon {
-    height: 1.6rem;
-  }
-
-  /* Footer */
-  .footer-icon {
-    height: 2rem;
   }
 }
