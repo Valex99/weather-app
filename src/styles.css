@@ -53,11 +53,26 @@
   overflow-y: hidden;
   white-space: nowrap;
   display: flex;
-  gap: 10px; 
 }
 
-.hour-by-hour-div {
+.day-by-day-div {
+  flex-direction: column;
+  gap: 10px;
+}
+
+.day-by-day-div p {
+  display: inline;
+}
+
+.day-div {
   display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between
+}
+
+.weather-icon {
+  height: 30px;
 }
 
 .footer-div {
