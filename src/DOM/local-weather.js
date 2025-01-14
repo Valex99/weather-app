@@ -1,11 +1,17 @@
 // 1
 import { hourlyForecast } from "./hourly-forecast";
 import { createFooter } from "./footer";
-import '../styles/local-weather.css';
-
+import "../styles/local-weather.css";
 
 const content = document.getElementById("content");
 content.classList.add("content");
+
+// Adding background image to the project - create a function later
+content.style.backgroundImage = "url('./background-images/sunny.jpg')";
+content.style.backgroundSize = "cover"; // Ensures the image covers the div
+content.style.backgroundPosition = "35% -50px"; // Adjusts the horizontal position
+content.style.backgroundRepeat = "no-repeat"; // Prevents repeating
+content.style.backgroundAttachment = "fixed"; // Keeps the image in place
 
 function localWeather() {
   const tempMainDiv = document.createElement("div");
@@ -52,6 +58,9 @@ function localWeather() {
       tempMainDiv.classList.remove("shrink");
     }
   });
+
+  // Add event listener to close window
+  
 
   // Create Footer
   createFooter();
