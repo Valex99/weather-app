@@ -8,7 +8,7 @@ import "../styles/daily-forecast.css";
 function dailyForecast() {
   // 1. Main div
   const dailyForecastDiv = document.createElement("div");
-  dailyForecastDiv.classList.add("daily-forecast-div");
+  dailyForecastDiv.classList.add("double-widget");
 
   // 2. Div that holds img and title
   const iconTitleDiv = document.createElement("div");
@@ -20,7 +20,7 @@ function dailyForecast() {
   calendarImage.classList.add("icon");
 
   const dailyForecastTitle = document.createElement("p");
-  dailyForecastTitle.classList.add("daily-forecast-title");
+  dailyForecastTitle.classList.add("widget-title");
   dailyForecastTitle.textContent = "10-DAY FORECAST";
 
   // 3. Div that holds hour by hour smaller divs

@@ -32,10 +32,46 @@
 }
 
 .icon {
-  height: 1.6rem;
+  height: 1.5rem;
 }
 /**/
+.single-widget {
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(0, 0, 255, 0.404);
+}
 
+.double-widget {
+  padding: 15px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 255, 0.404);
+}
+
+.single-widget-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  gap: 10px; /* Optional */
+  margin-bottom: 10px;
+}
+
+.widget-title {
+  height: 1.6em;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  flex-grow: 1;
+  font-size: 0.8rem;
+}
+
+.placeholder-div {
+  height: 100px;
+  background-color: aquamarine;
+}
 
 /* If statement -> if code inside () is true, media query will kick in */
 @media (max-width: 640px) {

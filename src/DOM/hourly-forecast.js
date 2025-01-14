@@ -7,7 +7,7 @@ import "../styles/hourly-forecast.css";
 export function hourlyForecast() {
   // 1. Main div
   const hourlyForecastDiv = document.createElement("div");
-  hourlyForecastDiv.classList.add("hourly-forecast-div");
+  hourlyForecastDiv.classList.add("double-widget");
 
   // 2. Div that holds img and title
   const iconTitleDiv = document.createElement("div");
@@ -19,7 +19,7 @@ export function hourlyForecast() {
   clockImage.classList.add("icon");
 
   const hourlyForecastTitle = document.createElement("p");
-  hourlyForecastTitle.classList.add("hourly-forecast-title");
+  hourlyForecastTitle.classList.add("widget-title");
   hourlyForecastTitle.textContent = "HOURLY FORECAST";
 
   // 3. Div that holds hour by hour smaller divs

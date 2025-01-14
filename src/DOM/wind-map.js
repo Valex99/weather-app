@@ -10,7 +10,7 @@ import { content } from "./local-weather";
 export function windMap() {
   // 1. Main div
   const windMapDiv = document.createElement("div");
-  windMapDiv.classList.add("wind-map-div");
+  windMapDiv.classList.add("double-widget");
 
   // 2. Div that holds img and title
   const iconTitleDiv = document.createElement("div");
@@ -22,7 +22,7 @@ export function windMap() {
   windImage.classList.add("icon");
 
   const windTitle = document.createElement("p");
-  windTitle.classList.add("wind-title");
+  windTitle.classList.add("widget-title");
   windTitle.textContent = "WIND MAP";
 
   // 3. Div that holds map img

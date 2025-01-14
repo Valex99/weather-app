@@ -1,48 +1,27 @@
-.daily-forecast-div {
-  padding: 15px;
-  border-radius: 20px;
+.day-by-day-div {
+  background-color: aquamarine;
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
-  margin-bottom: 10px;
-  background-color: rgba(0, 0, 255, 0.404);
+  gap: 10px;
 }
-
-
-
-.daily-forecast-title {
-  height: 1.6em;
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  flex-grow: 1;
-}
-
-.day-by-day-div {
-    background-color: aquamarine;
-    height: 100%;
-    width: 100%;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 
 /* Function each day */
 .day-div {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: space-between
-  }
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
 
-  .day-by-day-div p {
-    display: inline;
-  }
+.day-by-day-div p {
+  display: inline;
+}
 
-  .weather-icon {
-    height: 30px;
-  }
-
+.weather-icon {
+  height: 30px;
+}
