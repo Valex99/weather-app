@@ -4,7 +4,11 @@ import { createFooter } from "./footer";
 import "../styles/local-weather.css";
 
 // Experimaental
-import { getCurrentTemp } from "../logic";
+import {
+  getCurrentTemp,
+  getCurrentWeatherCode,
+  getDailyHighAndLow,
+} from "../logic";
 
 const content = document.getElementById("content");
 content.classList.add("content");
@@ -55,8 +59,25 @@ function localWeather() {
   });
   // -->
 
-  weather.textContent = "Sunny";
-  highLowTemp.textContent = "H:1° L:-3°";
+  getCurrentWeatherCode().then((weatherCode) => {
+    let currentWeather = null;
+    if (weatherCode === 1 || weatherCode === 2 || weatherCode === 3) {
+      currentWeather = "Partly Cloudy";
+      //currentWeather = "Simke DERPE :P"
+    } else {
+      currentWeather = "IDK";
+    }
+    weather.textContent = currentWeather;
+  });
+
+  getDailyHighAndLow().then(({ maxTemp, minTemp }) => {
+    highLowTemp.textContent = `H: ${Math.round(maxTemp)}° L: ${Math.round(
+      minTemp
+    )}°`;
+  });
+
+  //weather.textContent = "Sunny";
+  //highLowTemp.textContent = "H:1° L:-3°";
 
   weatherDetails.appendChild(temperature);
   weatherDetails.appendChild(weather);

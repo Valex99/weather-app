@@ -1,5 +1,5 @@
 const API =
-  "https://api.open-meteo.com/v1/forecast?latitude=45.783031&longitude=14.203842&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
+  "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
 
 export async function fetchWeather() {
   const response = await fetch(API);
@@ -13,6 +13,18 @@ export async function getCurrentTemp() {
   return data.current.temperature_2m;
 }
 
+export async function getCurrentWeatherCode() {
+  const data = await fetchWeather();
+  return data.hourly.weather_code[0];
+}
+
+export async function getDailyHighAndLow() {
+  const data = await fetchWeather();
+  const maxTemp = data.daily.temperature_2m_max[0];
+  const minTemp = data.daily.temperature_2m_min[0];
+
+  return { maxTemp, minTemp }; // return an object with both values
+}
 // console.log(weatherData.hourly.temperature_2m[0]);
 
 // const currentTemp = weatherData.hourly.temperature_2m[0];
