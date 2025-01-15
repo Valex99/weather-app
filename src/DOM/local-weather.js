@@ -3,6 +3,9 @@ import { hourlyForecast } from "./hourly-forecast";
 import { createFooter } from "./footer";
 import "../styles/local-weather.css";
 
+// Experimaental
+import { getCurrentTemp } from "../logic";
+
 const content = document.getElementById("content");
 content.classList.add("content");
 
@@ -34,7 +37,24 @@ function localWeather() {
   highLowTemp.classList.add("high-low-temp");
 
   cityName.textContent = "Postojna";
-  temperature.textContent = "1 °";
+
+  // --> CALL API FUNCTION
+
+  //temperature.textContent = "-1 °";
+  //temperature.textContent = getWeather(); Dont call async function like that! It returns a promise
+  // async function updateTemp() {
+  //   const currentTemp = await getWeather(); // Wait for the Promise to resolve
+  //   temperature.textContent = `${currentTemp}°`; // Assign the resolved value
+  // }
+  // Round up the numbers ->
+
+  // Function call
+  //updateTemp();
+  getCurrentTemp().then((currentTemp) => {
+    temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
+  });
+  // -->
+
   weather.textContent = "Sunny";
   highLowTemp.textContent = "H:1° L:-3°";
 
@@ -60,7 +80,6 @@ function localWeather() {
   });
 
   // Add event listener to close window
-  
 
   // Create Footer
   createFooter();
