@@ -3,7 +3,14 @@ import { dailyForecast } from "./daily-forecast";
 import clockIcon from "../project-icons/clock-icon.png";
 import clearIcon from "../weather-icons/clear.png";
 import "../styles/hourly-forecast.css";
-import { getHourlyForecast, getCurrentTime } from "../logic";
+import {
+  getHourlyForecast,
+  getCurrentTime,
+  getWeatherCode,
+  isDay,
+} from "../logic";
+import weatherCodes from "../json/weatherCodes.json";
+// Webpack will handle the JSON import automatically, turning it into a JavaScript object that you can easily access.
 
 export function hourlyForecast() {
   // 1. Main div
@@ -39,10 +46,21 @@ export function hourlyForecast() {
     getCurrentTime().then((currentTime) => {
       const time = currentTime;
 
-      // Call eachHour for each value
-      for (let i = 0; i < 24; i++) {
-        eachHour(i, hourByHourDiv, allTemps, time);
-      }
+      getWeatherCode().then((weatherCode) => {
+        const allWeatherCodes = weatherCode;
+
+        isDay().then((value) => {
+          const day = value;
+          // Call eachHour for each value
+          for (let i = 0; i < 24; i++) {
+            eachHour(i, hourByHourDiv, allTemps, time, weatherCode, day);
+          }
+
+
+        })
+
+      
+      });
     });
   });
 
@@ -55,7 +73,7 @@ export function hourlyForecast() {
 }
 
 // Create hourly forecast
-function eachHour(n, elementToAppendTo, tempArr, currentTime) {
+function eachHour(n, elementToAppendTo, tempArr, currentTime, weatherCode, isDay) {
   const containerDiv = document.createElement("div");
   containerDiv.classList.add("container-div");
 
@@ -76,6 +94,13 @@ function eachHour(n, elementToAppendTo, tempArr, currentTime) {
   }
 
   const weatherIcon = document.createElement("img");
+
+  // THIS WILL NEED TO BE UPDATED DANAMICALLY
+  // 1 GET THE ARRAY OF WEATHER CODES
+  // 2 FOR FIRST CODE WEATHER CODE DISPLAY THE RIGHT ICON
+  console.log(weatherCode[n]);
+  const weatherCodeAtIndex = weatherCode[n];
+
   weatherIcon.src = clearIcon;
 
   const temp = document.createElement("p");

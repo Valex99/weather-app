@@ -55,10 +55,10 @@ export async function getHourlyForecast() {
   const timeIndex = data.hourly.time.findIndex(
     (time) => time === updatedDateTime
   );
-  console.log("Time index: ",timeIndex);
+  console.log("Time index: ", timeIndex);
 
   // Finds 17
-//const tempAtIndex = data.hourly.temperature_2m[timeIndex];
+  //const tempAtIndex = data.hourly.temperature_2m[timeIndex];
   //console.log(Math.round(tempAtIndex));
 
   const dailyTempArray = data.hourly.temperature_2m.slice(
@@ -94,7 +94,31 @@ export async function getCurrentTime() {
 }
 
 export async function getWeatherCode() {
-    
+  const data = await fetchWeather();
+  const currentHour = await getCurrentTime();
+  //console.log(currentHour, typeof currentHour);
+
+  const weatherCode = data.hourly.weather_code[currentHour];
+  //console.log("Weather code at index is: ", currentHour ,weatherCode);
+
+  const dailyWeatherCodeArray = data.hourly.weather_code.slice(
+    weatherCode, // Start index -> first item included at this index
+    weatherCode + 24 // End index -> last index not included
+  );
+
+  console.log(dailyWeatherCodeArray);
+  return dailyWeatherCodeArray;
+}
+
+export async function isDay() {
+  const data = await fetchWeather();
+  const number = data.current.is_day;
+  console.log(number);
+  if (number === 0) {
+    return false;
+  } else if (number === 1) {
+    return true;
+  }
 }
 // Use lindter for your code
 // 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)
