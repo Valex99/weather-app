@@ -1,10 +1,16 @@
 const API =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
 
+// Location api KEY (openCage geocoder)
+const myKey = "06992bbeb6774b539da6dcc27fecae94"
+const lat = 45.7743;
+const lon = 14.2153;
+
 export async function fetchWeather() {
   const response = await fetch(API);
   const weatherData = await response.json();
   console.log(weatherData);
+
   return weatherData;
 }
 
@@ -25,16 +31,17 @@ export async function getDailyHighAndLow() {
 
   return { maxTemp, minTemp }; // return an object with both values
 }
-// console.log(weatherData.hourly.temperature_2m[0]);
 
-// const currentTemp = weatherData.hourly.temperature_2m[0];
-// console.log("Current temp is:", currentTemp);
 
-// const weatherCode = weatherData.daily.weather_code[0];
-// console.log(weatherCode);
 
-// //return currentTemp
-// console.log(weatherData);
+export async function getLocationName() {
+    const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${myKey}`)
+    const loaction = await response.json();
+
+    console.log(loaction.results[0].components.town);
+    return loaction.results[0].components.town;
+}
+
 
 // Use lindter for your code
 // 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)

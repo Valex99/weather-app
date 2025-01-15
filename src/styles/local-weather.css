@@ -19,25 +19,3 @@
 }
 
 /* ANIMATION - figure it out later */
-.temp-main-div.shrink .weather-details {
-  flex-direction: row; /* Change to horizontal layout */
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  gap: 10px; /* Add spacing between items */
-  font-size: 14px; /* Optional: Adjust font size */
-  margin-bottom: 50px;
-}
-
-/**/
-.temp-main-div.shrink .temp {
-  font-size: 20px; /* Shrink temperature on scroll */
-}
-
-.temp-main-div.shrink .weather {
-  font-size: 14px; /* Shrink description on scroll */
-}
-
-.temp-main-div.shrink .high-low-temp {
-  font-size: 14px; /* Shrink description on scroll */
-}

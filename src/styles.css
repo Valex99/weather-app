@@ -7,7 +7,6 @@
     Helvetica, Arial, sans-serif;
   color: white;
 
-  border: 1px solid red;
 }
 
 #content {
@@ -72,6 +71,10 @@
 .placeholder-div {
   height: 100px;
   background-color: aquamarine;
+}
+
+.double-widget {
+  transition: opacity 0.3s ease;
 }
 
 /* If statement -> if code inside () is true, media query will kick in */

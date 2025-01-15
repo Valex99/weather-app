@@ -8,6 +8,7 @@ import {
   getCurrentTemp,
   getCurrentWeatherCode,
   getDailyHighAndLow,
+  getLocationName,
 } from "../logic";
 
 const content = document.getElementById("content");
@@ -40,30 +41,23 @@ function localWeather() {
   const highLowTemp = document.createElement("p");
   highLowTemp.classList.add("high-low-temp");
 
-  cityName.textContent = "Postojna";
 
-  // --> CALL API FUNCTION
+getLocationName().then((location) => {
+  cityName.textContent = location;
+})
 
-  //temperature.textContent = "-1 °";
-  //temperature.textContent = getWeather(); Dont call async function like that! It returns a promise
-  // async function updateTemp() {
-  //   const currentTemp = await getWeather(); // Wait for the Promise to resolve
-  //   temperature.textContent = `${currentTemp}°`; // Assign the resolved value
-  // }
-  // Round up the numbers ->
 
-  // Function call
-  //updateTemp();
+  //cityName.textContent = "Po";
+
   getCurrentTemp().then((currentTemp) => {
     temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
   });
-  // -->
 
   getCurrentWeatherCode().then((weatherCode) => {
     let currentWeather = null;
     if (weatherCode === 1 || weatherCode === 2 || weatherCode === 3) {
       currentWeather = "Partly Cloudy";
-      //currentWeather = "Simke DERPE :P"
+      // Add all other values
     } else {
       currentWeather = "IDK";
     }
@@ -75,9 +69,6 @@ function localWeather() {
       minTemp
     )}°`;
   });
-
-  //weather.textContent = "Sunny";
-  //highLowTemp.textContent = "H:1° L:-3°";
 
   weatherDetails.appendChild(temperature);
   weatherDetails.appendChild(weather);
@@ -91,16 +82,38 @@ function localWeather() {
 
   content.appendChild(tempMainDiv);
 
-  // Add event listener on a scroll
-  window.addEventListener("scroll", () => {
-    if (window.scrollY > 40) {
-      tempMainDiv.classList.add("shrink");
-    } else {
-      tempMainDiv.classList.remove("shrink");
-    }
-  });
+  // Add event listener on scroll
 
   // Add event listener to close window
+
+  // Add event listener for scroll to hide content
+  // Add event listener for scroll to hide content
+  document.addEventListener("scroll", () => {
+    const tempMainDiv = document.querySelector(".temp-main-div");
+    const widgets = document.querySelectorAll(
+      ".double-widget",
+      ".single-widget-container"
+    );
+
+    // tempMainDivBottom: Calculates the bottom edge of the green box.
+    const tempMainDivBottom = tempMainDiv.getBoundingClientRect().bottom;
+
+    widgets.forEach((widget) => {
+      // widgetTop: Checks the top position of each double-widget.
+      const widgetTop = widget.getBoundingClientRect().top;
+
+      // Adjust opacity based on position relative to temp-main-div
+      // 	3.	Fade-Out Logic: If the widget’s top is within or below the green box, reduce opacity.
+      if (widgetTop < tempMainDivBottom) {
+        widget.style.opacity = Math.max(
+          0,
+          (widgetTop - tempMainDivBottom) / 100
+        ); // Smooth fade-out
+      } else {
+        widget.style.opacity = 1; // Fully visible
+      }
+    });
+  });
 
   // Create Footer
   createFooter();
