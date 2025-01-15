@@ -1,5 +1,4 @@
 .hour-by-hour-div {
-    background-color: aquamarine;
     height: 100%;
     width: 100%;
     overflow-x: auto;
@@ -15,6 +14,10 @@
     align-items: center;
     font-size: 1.5rem;
     padding: 0.5rem;
+    gap: 5px;
+    font-size: 20px;
+
+    min-width: 50px;
   }
   
   .container-div img {

@@ -38,7 +38,7 @@ export async function getLocationName() {
   );
   const loaction = await response.json();
 
-  console.log(loaction.results[0].components.town);
+  //console.log(loaction.results[0].components.town);
   return loaction.results[0].components.town;
 }
 
@@ -46,30 +46,30 @@ export async function getHourlyForecast() {
   const data = await fetchWeather();
 
   const currentTime = data.current.time;
-  console.log("CURRENT TIME IS:", currentTime);
+
   // Last two numbers should always be 00
   let updatedDateTime = currentTime.replace(/:\d{2}$/, ":00");
-  console.log(updatedDateTime);
+  //console.log(updatedDateTime);
 
   // Find index of that time in hourly.time
   const timeIndex = data.hourly.time.findIndex(
     (time) => time === updatedDateTime
   );
-  console.log(timeIndex);
+  console.log("Time index: ",timeIndex);
 
   // Finds 17
-  const tempAtIndex = data.hourly.temperature_2m[17];
-  console.log(Math.round(tempAtIndex));
+//const tempAtIndex = data.hourly.temperature_2m[timeIndex];
+  //console.log(Math.round(tempAtIndex));
 
   const dailyTempArray = data.hourly.temperature_2m.slice(
     timeIndex,
     timeIndex + 24
   );
-  console.log(dailyTempArray);
+  //console.log(dailyTempArray);
 
   // Round the values up ->
   const roundedTempArray = dailyTempArray.map((temp) => Math.round(temp));
-  console.log(roundedTempArray);
+  //console.log(roundedTempArray);
 
   // Give this array to hourly forecast
 
@@ -83,20 +83,19 @@ export async function getCurrentTime() {
   const data = await fetchWeather();
 
   const currentTime = data.current.time;
-  console.log("CURRENT TIME IS:", currentTime);
   // Last two numbers should always be 00
   const updatedDateTime = currentTime.replace(/:\d{2}$/, ":00");
-  console.log(updatedDateTime);
 
   const timeOnly = updatedDateTime.slice(-5);
-  console.log(timeOnly);
 
   const hourOnly = timeOnly.split(":")[0];
-  console.log(hourOnly);
 
   return hourOnly;
 }
 
+export async function getWeatherCode() {
+    
+}
 // Use lindter for your code
 // 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)
 // 2) Fix scrolling on home page

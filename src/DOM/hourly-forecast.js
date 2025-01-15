@@ -64,9 +64,13 @@ function eachHour(n, elementToAppendTo, tempArr, currentTime) {
   const hourInt = parseInt(currentTime);
 
   if (hourInt + n === hourInt) {
-    hour.textContent = "Now"
+    hour.textContent = "Now";
   } else if (hourInt + n >= 24) {
-    hour.textContent = hourInt + n - 24;
+    if (hourInt + n - 24 > 9) {
+      hour.textContent = hourInt + n - 24;
+    } else {
+      hour.textContent = "0" + (hourInt + n - 24);
+    }
   } else {
     hour.textContent = hourInt + n;
   }
@@ -76,7 +80,7 @@ function eachHour(n, elementToAppendTo, tempArr, currentTime) {
 
   const temp = document.createElement("p");
 
-  temp.textContent = tempArr[n];
+  temp.textContent = tempArr[n] + "°";
 
   containerDiv.appendChild(hour);
   containerDiv.appendChild(weatherIcon);
@@ -84,3 +88,5 @@ function eachHour(n, elementToAppendTo, tempArr, currentTime) {
 
   elementToAppendTo.appendChild(containerDiv);
 }
+
+// Update icons is day? Is night?
