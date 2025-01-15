@@ -3,7 +3,7 @@ import { dailyForecast } from "./daily-forecast";
 import clockIcon from "../project-icons/clock-icon.png";
 import clearIcon from "../weather-icons/clear.png";
 import "../styles/hourly-forecast.css";
-import { getHourlyForecast } from "../logic";
+import { getHourlyForecast, getCurrentTime } from "../logic";
 
 export function hourlyForecast() {
   // 1. Main div
@@ -32,38 +32,51 @@ export function hourlyForecast() {
 
   hourlyForecastDiv.appendChild(iconTitleDiv);
 
-  // Call eachHour for each value
-  for (let i = 0; i < 26; i++) {
-    eachHour(i, hourByHourDiv);
-  }
+  getHourlyForecast().then((tempArr) => {
+    const allTemps = tempArr;
+    console.log("All temps", allTemps);
+
+    getCurrentTime().then((currentTime) => {
+      const time = currentTime;
+
+      // Call eachHour for each value
+      for (let i = 0; i < 24; i++) {
+        eachHour(i, hourByHourDiv, allTemps, time);
+      }
+    });
+  });
 
   hourlyForecastDiv.appendChild(hourByHourDiv);
 
   content.appendChild(hourlyForecastDiv);
 
-  getHourlyForecast().then((currentTime) => {
-    console.log(currentTime);
-  })
-
   // Call Daily forecast function
   dailyForecast();
-
-  
 }
 
 // Create hourly forecast
-function eachHour(n, elementToAppendTo) {
+function eachHour(n, elementToAppendTo, tempArr, currentTime) {
   const containerDiv = document.createElement("div");
   containerDiv.classList.add("container-div");
 
   const hour = document.createElement("p");
-  hour.textContent = n;
+
+  const hourInt = parseInt(currentTime);
+
+  if (hourInt + n === hourInt) {
+    hour.textContent = "Now"
+  } else if (hourInt + n >= 24) {
+    hour.textContent = hourInt + n - 24;
+  } else {
+    hour.textContent = hourInt + n;
+  }
 
   const weatherIcon = document.createElement("img");
   weatherIcon.src = clearIcon;
 
   const temp = document.createElement("p");
-  temp.textContent = "2°";
+
+  temp.textContent = tempArr[n];
 
   containerDiv.appendChild(hour);
   containerDiv.appendChild(weatherIcon);
