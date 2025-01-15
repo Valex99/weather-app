@@ -32,8 +32,6 @@ export async function getDailyHighAndLow() {
   return { maxTemp, minTemp }; // return an object with both values
 }
 
-
-
 export async function getLocationName() {
     const response = await fetch(`https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=${myKey}`)
     const loaction = await response.json();
@@ -42,9 +40,26 @@ export async function getLocationName() {
     return loaction.results[0].components.town;
 }
 
+export async function getHourlyForecast() {
+    const data = await fetchWeather();
+
+    const currentTime = data.current.time
+    console.log("CURRENT TIME IS:", currentTime);
+    // Last two numbers should always be 00
+    let updatedDateTime = currentTime.replace(/:\d{2}$/, ":00");
+    console.log(updatedDateTime);
+
+    // Find index of that time in hourly.time
+    const timeIndex = data.hourly.time.find(time => time === updatedDateTime)
+    console.log(timeIndex);
+
+}
 
 // Use lindter for your code
 // 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)
 // 2) Fix scrolling on home page
 // 3) put icons / imgs / elemnts inside each widget
 // 4) Maybe create a class in logic .js
+
+// 1) Find current time
+// 2) Find index of current time in the array .hourly.temperature_2m / time

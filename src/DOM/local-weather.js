@@ -41,11 +41,9 @@ function localWeather() {
   const highLowTemp = document.createElement("p");
   highLowTemp.classList.add("high-low-temp");
 
-
-getLocationName().then((location) => {
-  cityName.textContent = location;
-})
-
+  getLocationName().then((location) => {
+    cityName.textContent = location;
+  });
 
   //cityName.textContent = "Po";
 
@@ -91,8 +89,7 @@ getLocationName().then((location) => {
   document.addEventListener("scroll", () => {
     const tempMainDiv = document.querySelector(".temp-main-div");
     const widgets = document.querySelectorAll(
-      ".double-widget",
-      ".single-widget-container"
+      ".double-widget, .single-widget-container"
     );
 
     // tempMainDivBottom: Calculates the bottom edge of the green box.

@@ -3,6 +3,7 @@ import { dailyForecast } from "./daily-forecast";
 import clockIcon from "../project-icons/clock-icon.png";
 import clearIcon from "../weather-icons/clear.png";
 import "../styles/hourly-forecast.css";
+import { getHourlyForecast } from "../logic";
 
 export function hourlyForecast() {
   // 1. Main div
@@ -40,8 +41,14 @@ export function hourlyForecast() {
 
   content.appendChild(hourlyForecastDiv);
 
+  getHourlyForecast().then((currentTime) => {
+    console.log(currentTime);
+  })
+
   // Call Daily forecast function
   dailyForecast();
+
+  
 }
 
 // Create hourly forecast
