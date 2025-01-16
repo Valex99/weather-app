@@ -1,4 +1,6 @@
-//import weatherData from "./json/weatherCodes.json";
+// Using caching mechanism
+let cachedWeatherData = null; // Cache to store the API response
+
 
 const API =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
@@ -9,11 +11,15 @@ const lat = 45.7743;
 const lon = 14.2153;
 
 export async function fetchWeather() {
-  const response = await fetch(API);
-  const weatherData = await response.json();
-  console.log(weatherData);
+    if (!cachedWeatherData) {
+        const response = await fetch(API)
+        cachedWeatherData = await response.json();
+        console.log("Fetched new weather data: ", cachedWeatherData);
+    } else {
+        console.log("Using cached weather data:", cachedWeatherData);
+    }
+    return cachedWeatherData
 
-  return weatherData;
 }
 
 export async function getCurrentTemp() {
