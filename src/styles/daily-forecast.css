@@ -1,5 +1,4 @@
 .day-by-day-div {
-  background-color: aquamarine;
   height: 100%;
   width: 100%;
   overflow-x: auto;
@@ -10,17 +9,27 @@
   gap: 10px;
 }
 
+.day-text {
+  width: 2rem;
+}
+
 /* Function each day */
 .day-div {
   display: flex;
-  gap: 10px;
   align-items: center;
   justify-content: space-between;
+  margin-top: 10px;
+  border-bottom: 0.5px solid gray;
+  padding-bottom: 5px;
+
 }
 
 .day-by-day-div p {
   display: inline;
+  font-size: 20px;
 }
+
+
 
 .weather-icon {
   height: 30px;

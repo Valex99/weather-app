@@ -85,7 +85,8 @@ function localWeather() {
   // Add event listener to close window
 
   // Add event listener for scroll to hide content
-  // Add event listener for scroll to hide content
+
+  /*
   document.addEventListener("scroll", () => {
     const tempMainDiv = document.querySelector(".temp-main-div");
     const widgets = document.querySelectorAll(
@@ -111,7 +112,8 @@ function localWeather() {
       }
     });
   });
-
+  // Fix position sticky as well (local-weather.css .temp-main-div)
+*/
   // Create Footer
   createFooter();
 

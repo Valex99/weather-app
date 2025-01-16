@@ -43,7 +43,7 @@ export function hourlyForecast() {
 
   getHourlyForecast().then((tempArr) => {
     const allTemps = tempArr;
-    console.log("All temps", allTemps);
+    //console.log("All temps", allTemps);
 
     getCurrentTime().then((currentTime) => {
       const time = currentTime;
@@ -52,10 +52,17 @@ export function hourlyForecast() {
         const allWeatherCodes = weatherCode;
 
         isDay().then((values) => {
-          const allIsDayValues = values
+          const allIsDayValues = values;
           // Call eachHour for each value
           for (let i = 0; i < 24; i++) {
-            eachHour(i, hourByHourDiv, allTemps, time, allWeatherCodes, allIsDayValues);
+            eachHour(
+              i,
+              hourByHourDiv,
+              allTemps,
+              time,
+              allWeatherCodes,
+              allIsDayValues
+            );
           }
         });
       });
@@ -79,8 +86,6 @@ function eachHour(
   weatherCode,
   isDay
 ) {
-
-
   const containerDiv = document.createElement("div");
   containerDiv.classList.add("container-div");
 
@@ -102,14 +107,10 @@ function eachHour(
 
   const weatherIcon = document.createElement("img");
 
-  // THIS WILL NEED TO BE UPDATED DANAMICALLY
-  // 1 GET THE ARRAY OF WEATHER CODES
-  // 2 FOR FIRST CODE WEATHER CODE DISPLAY THE RIGHT ICON
-  console.log(weatherCode[n]);
   const weatherCodeAtIndex = weatherCode[n];
 
   //weatherIcon.src = clearIcon;
-  weatherIcon.src = getWeatherIcon(weatherCode[n], isDay[n])
+  weatherIcon.src = getWeatherIcon(weatherCode[n], isDay[n]);
 
   const temp = document.createElement("p");
 
@@ -122,4 +123,4 @@ function eachHour(
   elementToAppendTo.appendChild(containerDiv);
 }
 
-// Update icons is day? Is night?
+// Add sunset and sunrise!

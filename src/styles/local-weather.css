@@ -1,13 +1,13 @@
 /* Responsive weather header + weather details */
 .temp-main-div {
-  position: sticky;
+  /*position: sticky;*/
   top: 60px;
   z-index: 50;
   transition: all 0.3s ease;
 }
 
 .city-name {
-  position: sticky;
+  /*position: sticky;*/
   top: 60px;
 }
 

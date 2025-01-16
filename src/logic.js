@@ -1,25 +1,47 @@
 // Using caching mechanism
 let cachedWeatherData = null; // Cache to store the API response
-
+let weatherFetchPromise = null; // Cache to store the ongoing fetch promise
 
 const API =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
+
+const API1 =
+  "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 
 // Location api KEY (openCage geocoder)
 const myKey = "06992bbeb6774b539da6dcc27fecae94";
 const lat = 45.7743;
 const lon = 14.2153;
 
+// fetchWeatherData explanation
+// 1.	If cachedWeatherData exists, it immediately returns it without fetching.
+// 2.	If cachedWeatherData is null but a fetch is already in progress, it returns the ongoing fetch promise (weatherFetchPromise).
+// 3.	Only if no fetch is in progress (weatherFetchPromise === null) does it initiate a new fetch.
+// 4.	Once the fetch completes, it caches the data and resets weatherFetchPromise so future calls know no fetch is ongoing.
 export async function fetchWeather() {
-    if (!cachedWeatherData) {
-        const response = await fetch(API)
-        cachedWeatherData = await response.json();
-        console.log("Fetched new weather data: ", cachedWeatherData);
-    } else {
-        console.log("Using cached weather data:", cachedWeatherData);
-    }
-    return cachedWeatherData
+  if (cachedWeatherData) {
+    console.log("Using cached weather data:", cachedWeatherData);
+    return cachedWeatherData; // Return the cached data if available
+  }
 
+  if (!weatherFetchPromise) {
+    console.log("Fetching new weather data...");
+    weatherFetchPromise = fetch(API1)
+      .then((response) => response.json())
+      .then((data) => {
+        cachedWeatherData = data; // Cache the fetched data
+        weatherFetchPromise = null; // Reset the fetch promise after completion
+        console.log("Fetched new weather data: ", cachedWeatherData);
+        return data;
+      })
+      .catch((error) => {
+        weatherFetchPromise = null; // Reset on error
+        console.error("Error fetching weather data:", error);
+        throw error;
+      });
+  }
+
+  return weatherFetchPromise; // Return the ongoing fetch promise
 }
 
 export async function getCurrentTemp() {
@@ -65,26 +87,15 @@ export async function getHourlyForecast() {
   );
   console.log("Time index: ", timeIndex);
 
-  // Finds 17
-  //const tempAtIndex = data.hourly.temperature_2m[timeIndex];
-  //console.log(Math.round(tempAtIndex));
-
   const dailyTempArray = data.hourly.temperature_2m.slice(
     timeIndex,
     timeIndex + 24
   );
-  //console.log(dailyTempArray);
 
   // Round the values up ->
   const roundedTempArray = dailyTempArray.map((temp) => Math.round(temp));
-  //console.log(roundedTempArray);
-
-  // Give this array to hourly forecast
 
   return roundedTempArray;
-
-  // Take rounded time and assign it to hourly forecast, start with local time + 1
-  // Forecast into the future
 }
 
 export async function getCurrentTime() {
@@ -104,7 +115,7 @@ export async function getCurrentTime() {
 export async function getWeatherCode() {
   const data = await fetchWeather();
   const currentHour = await getCurrentTime();
-  console.log(currentHour, typeof currentHour);
+  //console.log(currentHour, typeof currentHour);
 
   const currentHourInt = parseInt(currentHour);
 
@@ -113,7 +124,7 @@ export async function getWeatherCode() {
     currentHourInt + 24 // End index -> last index not included
   );
 
-  console.log(dailyWeatherCodeArray);
+  //console.log(dailyWeatherCodeArray);
   return dailyWeatherCodeArray;
 }
 
@@ -128,15 +139,46 @@ export async function isDay() {
     currentHourInt,
     currentHourInt + 24
   );
-  console.log("Is day array: ", isDayArray);
+  //console.log("Is day array: ", isDayArray);
 
   return isDayArray;
 }
 
+export async function getCurrentDay() {
+  const data = await fetchWeather();
+
+  const currentTime = data.current.time;
+  console.log();
+
+  return currentTime;
+}
+
+export async function getTenDayForecast() {
+  const data = await fetchWeather();
+  const dailyWeatherCodes = data.daily.weather_code;
+  console.log("Daily Weather Codes: ", dailyWeatherCodes);
+
+  return dailyWeatherCodes;
+}
+
+/////////
+export async function getTenDayHigh() {
+  const data = await fetchWeather();
+
+  const maxTempArray = data.daily.temperature_2m_max;
+
+  return maxTempArray.map((temp) => Math.round(temp));
+}
+
+export async function getTenDayLow() {
+  const data = await fetchWeather();
+
+  const minTempArray = data.daily.temperature_2m_min;
+
+  return minTempArray.map((temp) => Math.round(temp));
+}
+
 // Use lindter for your code
-// 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)
-// 2) Fix scrolling on home page
-// 3) put icons / imgs / elemnts inside each widget
 // 4) Maybe create a class in logic .js
 
 // 1) Find current time

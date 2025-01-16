@@ -3,7 +3,11 @@ import calendarIcon from "../project-icons/calendar-icon.png";
 import { windMap } from "./wind-map";
 import clearIcon from "../weather-icons/clear.png";
 import "../styles/daily-forecast.css";
+import { getWeatherIcon } from "../weather-codes/weather-codes";
 
+import { getTenDayForecast, getTenDayHigh, getTenDayLow } from "../logic";
+
+const daysOfWeek = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"];
 
 function dailyForecast() {
   // 1. Main div
@@ -32,39 +36,66 @@ function dailyForecast() {
 
   dailyForecastDiv.appendChild(iconTitleDiv);
 
-  // Call eachHour for each value
-  for (let i = 0; i < 10; i++) {
-    eachDay(i, dayByDayDiv);
-  }
+  getTenDayForecast().then((codes) => {
+    const weatherCodesArray = codes;
+    //console.log(weatherCodesArray);
 
+    getTenDayHigh().then((temps) => {
+      const highTempArray = temps;
 
+      getTenDayLow().then((temps) => {
+        const lowTempArray = temps;
+
+        // Call eachHour for each value
+        for (let i = 0; i < 10; i++) {
+          eachDay(
+            i,
+            dayByDayDiv,
+            weatherCodesArray,
+            highTempArray,
+            lowTempArray
+          );
+        }
+      });
+    });
+  });
   dailyForecastDiv.appendChild(dayByDayDiv);
 
   content.appendChild(dailyForecastDiv);
 
+  // Call next function
   windMap();
 }
 
 // Create daily forecast
-function eachDay(n, elementToAppendTo) {
+function eachDay(n, elementToAppendTo, weatherCodesArray, highTempArray, lowTempArray) {
   const dayDiv = document.createElement("div");
   dayDiv.classList.add("day-div");
 
   const day = document.createElement("p");
-  day.textContent = "Mon";
+  day.classList.add("day-text");
+
+  if (n === 0) {
+    day.textContent = "Today";
+  } else if (n > 6) {
+    day.textContent = daysOfWeek[n - 7];
+  } else {
+    day.textContent = daysOfWeek[n];
+  }
 
   const weatherIcon = document.createElement("img");
-  weatherIcon.src = clearIcon;
-  weatherIcon.classList.add("weather-icon")
+
+  weatherIcon.src = getWeatherIcon(weatherCodesArray[n], true);
+  weatherIcon.classList.add("weather-icon");
 
   const minTemp = document.createElement("p");
-  minTemp.textContent = "-2°";
+  minTemp.textContent = lowTempArray[n] + "°"
 
   const graph = document.createElement("p");
   graph.textContent = "--------";
 
   const maxTemp = document.createElement("p");
-  maxTemp.textContent = "4°";
+  maxTemp.textContent = highTempArray[n] + "°"
 
   dayDiv.appendChild(day);
   dayDiv.appendChild(weatherIcon);
