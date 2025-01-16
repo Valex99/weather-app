@@ -9,7 +9,9 @@ import {
   getWeatherCode,
   isDay,
 } from "../logic";
-import weatherCodes from "../json/weatherCodes.json";
+
+import { getWeatherIcon } from "../weather-codes/weather-codes";
+
 // Webpack will handle the JSON import automatically, turning it into a JavaScript object that you can easily access.
 
 export function hourlyForecast() {
@@ -49,17 +51,13 @@ export function hourlyForecast() {
       getWeatherCode().then((weatherCode) => {
         const allWeatherCodes = weatherCode;
 
-        isDay().then((value) => {
-          const day = value;
+        isDay().then((values) => {
+          const allIsDayValues = values
           // Call eachHour for each value
           for (let i = 0; i < 24; i++) {
-            eachHour(i, hourByHourDiv, allTemps, time, weatherCode, day);
+            eachHour(i, hourByHourDiv, allTemps, time, allWeatherCodes, allIsDayValues);
           }
-
-
-        })
-
-      
+        });
       });
     });
   });
@@ -73,7 +71,16 @@ export function hourlyForecast() {
 }
 
 // Create hourly forecast
-function eachHour(n, elementToAppendTo, tempArr, currentTime, weatherCode, isDay) {
+function eachHour(
+  n,
+  elementToAppendTo,
+  tempArr,
+  currentTime,
+  weatherCode,
+  isDay
+) {
+
+
   const containerDiv = document.createElement("div");
   containerDiv.classList.add("container-div");
 
@@ -101,7 +108,8 @@ function eachHour(n, elementToAppendTo, tempArr, currentTime, weatherCode, isDay
   console.log(weatherCode[n]);
   const weatherCodeAtIndex = weatherCode[n];
 
-  weatherIcon.src = clearIcon;
+  //weatherIcon.src = clearIcon;
+  weatherIcon.src = getWeatherIcon(weatherCode[n], isDay[n])
 
   const temp = document.createElement("p");
 

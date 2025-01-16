@@ -1,3 +1,5 @@
+import weatherData from "./json/weatherCodes.json";
+
 const API =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
 
@@ -96,30 +98,35 @@ export async function getCurrentTime() {
 export async function getWeatherCode() {
   const data = await fetchWeather();
   const currentHour = await getCurrentTime();
-  //console.log(currentHour, typeof currentHour);
+  console.log(currentHour, typeof currentHour);
 
-  const weatherCode = data.hourly.weather_code[currentHour];
-  //console.log("Weather code at index is: ", currentHour ,weatherCode);
+  const currentHourInt = parseInt(currentHour);
 
   const dailyWeatherCodeArray = data.hourly.weather_code.slice(
-    weatherCode, // Start index -> first item included at this index
-    weatherCode + 24 // End index -> last index not included
+    currentHourInt, // Start index -> first item included at this index
+    currentHourInt + 24 // End index -> last index not included
   );
 
   console.log(dailyWeatherCodeArray);
   return dailyWeatherCodeArray;
 }
 
+// Check if is day from current hour onwards
 export async function isDay() {
   const data = await fetchWeather();
-  const number = data.current.is_day;
-  console.log(number);
-  if (number === 0) {
-    return false;
-  } else if (number === 1) {
-    return true;
-  }
+  const currentHour = await getCurrentTime();
+
+  const currentHourInt = parseInt(currentHour);
+
+  const isDayArray = data.hourly.is_day.slice(
+    currentHourInt,
+    currentHourInt + 24
+  );
+  console.log("Is day array: ", isDayArray);
+
+  return isDayArray;
 }
+
 // Use lindter for your code
 // 1) CREATE A PLAN WHERE TO PUT YOUR API CALL CODE (Separate file or?)
 // 2) Fix scrolling on home page
