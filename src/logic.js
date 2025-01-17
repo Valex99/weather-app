@@ -186,6 +186,14 @@ export async function getTenDayLow() {
   return minTempArray.map((temp) => Math.round(temp));
 }
 
+export async function getUvIndex() {
+  const data = await fetchWeather();
+
+  const currentHour = await getCurrentTime();
+
+  console.log("last",data.hourly.uv_index[parseInt(currentHour)]);
+  return data.hourly.uv_index[currentHour]
+}
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
 

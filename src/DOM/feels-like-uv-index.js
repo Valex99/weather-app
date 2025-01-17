@@ -4,7 +4,7 @@ import thermometerIcon from "../project-icons/thermometer.png";
 import sunIcon from "../project-icons/sun.png";
 import { wind } from "./wind";
 
-import { getFeelsLikeTemp, getCurrentTemp } from "../logic";
+import { getFeelsLikeTemp, getCurrentTemp, getUvIndex } from "../logic";
 
 export function createParentContainer() {
   const parentContainer = document.createElement("div");
@@ -149,7 +149,45 @@ function uvIndex(parentContainer) {
 
   // 3 Content div
   const uvIndexContent = document.createElement("div");
-  uvIndexContent.classList.add("placeholder-div");
+
+  // Working on it
+
+  const uvIndex = document.createElement("div");
+  uvIndex.classList.add("feels-like-temp"); // Apply the same class
+
+  const uvIndexText = document.createElement("div");
+  uvIndexText.classList.add("uv-index-text");
+  //uvIndexText.textContent = "Low";
+
+  getUvIndex().then((value) => {
+    uvIndex.textContent = value;
+
+    if (value >= 0 && value <= 2) {
+      uvIndexText.textContent = "Low";
+    } else if (value >= 3 && value <= 5) {
+      uvIndexText.textContent = "Moderate";
+    } else if (value >= 6 && value <= 7) {
+      uvIndexText.textContent = "High";
+    } else if (value >= 8 && value <= 10) {
+      uvIndexText.textContent = "Very High";
+    } else if (value >= 11) {
+      uvIndexText.textContent = "Extreme";
+    } else {
+      uvIndexText.textContent = "Invalid UV Index"; // Optional, handles unexpected values
+    }
+  });
+
+  const uvHorizontalBar = document.createElement("div");
+  uvHorizontalBar.classList.add("uv-horizontal-bar");
+
+  const uvIndexDescription = document.createElement("div");
+  uvIndexDescription.classList.add("uv-index-description");
+  uvIndexDescription.textContent = "Low for the rest of the day.";
+
+  uvIndexContent.appendChild(uvIndex);
+  uvIndexContent.appendChild(uvIndexText);
+  uvIndexContent.appendChild(uvHorizontalBar);
+  uvIndexContent.appendChild(uvIndexDescription);
 
   uvIndexDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(sunImage);
