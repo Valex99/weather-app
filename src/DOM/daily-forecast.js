@@ -151,3 +151,17 @@ function eachDay(
 
 export { dailyForecast };
 
+// A very good example of how daily forecast could be called with Promise.all
+// Use Promise.all to fetch all required data concurrently
+// Promise.all([getTenDayForecast(), getTenDayHigh(), getTenDayLow()])
+//   .then(([weatherCodesArray, highTempArray, lowTempArray]) => {
+//     // Iterate over the data to create each day's forecast
+//     for (let i = 0; i < 10; i++) {
+//       eachDay(i, dayByDayDiv, weatherCodesArray, highTempArray, lowTempArray);
+//     }
+//   })
+//   .catch((error) => {
+//     console.error("Error fetching ten-day forecast data:", error);
+//   });
+
+// •	Promise.all takes an array of promises (getTenDayForecast, getTenDayHigh, and getTenDayLow) and resolves when all of them are fulfilled.

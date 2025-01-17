@@ -44,16 +44,16 @@ function feelsLike(parentContainer) {
   const feelsLikeTemp = document.createElement("div");
   feelsLikeTemp.classList.add("feels-like-temp");
 
-  getFeelsLikeTemp().then((apparentTemp) => {
-    feelsLikeTemp.textContent = apparentTemp + "째";
-  });
+  // getFeelsLikeTemp().then((apparentTemp) => {
+  //   feelsLikeTemp.textContent = apparentTemp + "째";
+  // });
 
   const actualTemp = document.createElement("div");
   actualTemp.classList.add("actual-temp");
 
-  getCurrentTemp().then((currentTemp) => {
-    actualTemp.textContent = "Actual: " + Math.round(currentTemp) + "째";
-  });
+  // getCurrentTemp().then((currentTemp) => {
+  //   actualTemp.textContent = "Actual: " + Math.round(currentTemp) + "째";
+  // });
 
   // Shows how feels like temp compares to actual temp
   // Left side represents lowest perceived temp and right side represents actual temp
@@ -73,38 +73,6 @@ function feelsLike(parentContainer) {
   const sliderValue = document.createElement("div");
   sliderValue.classList.add("slider-value");
 
-  // Css implemented
-  // NEXT-> IMPLEMENT JS
-  // CHAT GPT FUNCTION
-  // Import Daily high and low (or array and take index0 value)
-  /*
-
-function updateHorizontalBar(feelsLikeTemp, actualTemp, minTemp, maxTemp) {
-  const horizontalBar = document.querySelector('.horizontal-bar');
-  const barFilled = horizontalBar.querySelector('.bar-filled');
-  const sliderIndicator = horizontalBar.querySelector('.slider-indicator');
-  const sliderValue = sliderIndicator.querySelector('.slider-value');
-
-  // Calculate percentage positions
-  const range = maxTemp - minTemp;
-  const feelsLikePercent = ((feelsLikeTemp - minTemp) / range) * 100;
-  const actualPercent = ((actualTemp - minTemp) / range) * 100;
-
-  // Update the filled bar
-  barFilled.style.width = `${feelsLikePercent}%`;
-
-  // Position the slider
-  sliderIndicator.style.left = `${feelsLikePercent}%`;
-
-  // Update the slider value
-  sliderValue.textContent = `${feelsLikeTemp}째`;
-}
-
-// Example Usage
-updateHorizontalBar(-3, 1, -10, 10); // Feels like: -3째, Actual: 1째, Min: -10째, Max: 10째
-
-*/
-
   // This needs to be fixed -> dynamically update messages
   // If weather is windy display x message
   // Just like weather icon function (return message)
@@ -113,10 +81,12 @@ updateHorizontalBar(-3, 1, -10, 10); // Feels like: -3째, Actual: 1째, Min: -10�
   description.textContent = "Wind is making it feel colder";
 
   // Append bar elements to horizontal bar
+  sliderIndicator.appendChild(sliderValue);
+
   horizontalBar.appendChild(barTrack);
   horizontalBar.appendChild(barFilled);
   horizontalBar.appendChild(sliderIndicator);
-  horizontalBar.appendChild(sliderValue);
+  //horizontalBar.appendChild(sliderValue);
 
   // Append elements to content
   feelsLikeContent.appendChild(feelsLikeTemp);
@@ -132,6 +102,30 @@ updateHorizontalBar(-3, 1, -10, 10); // Feels like: -3째, Actual: 1째, Min: -10�
 
   //content.appendChild(feelsLikeDiv);
   parentContainer.appendChild(feelsLikeDiv);
+
+  // A WAY OF HANDLING PRIOMISES WITH PROMISE.ALL
+  // Fetch and update data
+  Promise.all([getFeelsLikeTemp(), getCurrentTemp()]).then(
+    ([apparentTemp, currentTemp]) => {
+      feelsLikeTemp.textContent = `${apparentTemp}째`;
+      actualTemp.textContent = `Actual: ${Math.round(currentTemp)}째`;
+
+      // Calculate percentage fill
+      const minTemp = Math.min(apparentTemp, currentTemp) - 10; // Adjust range
+      const maxTemp = Math.max(apparentTemp, currentTemp) + 10;
+      const fillPercentage =
+        ((apparentTemp - minTemp) / (maxTemp - minTemp)) * 100;
+
+      // Update bar
+      barFilled.style.width = `${fillPercentage}%`;
+
+      // Update slider position
+      console.log(apparentTemp, currentTemp);
+
+      sliderIndicator.style.left = `${fillPercentage}%`;
+      sliderValue.textContent = `${apparentTemp - Math.round(currentTemp)} 째`;
+    }
+  );
 }
 
 function uvIndex(parentContainer) {
