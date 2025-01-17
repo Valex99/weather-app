@@ -8,6 +8,7 @@ import { createParentContainer } from "./feels-like-uv-index";
 import { content } from "./local-weather";
 
 export function windMap() {
+// Update previous div style now that is completed
   // 1. Main div
   const windMapDiv = document.createElement("div");
   windMapDiv.classList.add("double-widget");

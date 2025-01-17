@@ -8,6 +8,7 @@
   background-color: rgb(42, 124, 165);
   display: flex;
   gap: 1rem;
+  z-index: 1000;
 }
 
 .footer-icon {

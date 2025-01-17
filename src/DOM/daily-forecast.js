@@ -68,7 +68,13 @@ function dailyForecast() {
 }
 
 // Create daily forecast
-function eachDay(n, elementToAppendTo, weatherCodesArray, highTempArray, lowTempArray) {
+function eachDay(
+  n,
+  elementToAppendTo,
+  weatherCodesArray,
+  highTempArray,
+  lowTempArray
+) {
   const dayDiv = document.createElement("div");
   dayDiv.classList.add("day-div");
 
@@ -89,21 +95,59 @@ function eachDay(n, elementToAppendTo, weatherCodesArray, highTempArray, lowTemp
   weatherIcon.classList.add("weather-icon");
 
   const minTemp = document.createElement("p");
-  minTemp.textContent = lowTempArray[n] + "°"
-
-  const graph = document.createElement("p");
-  graph.textContent = "--------";
+  minTemp.textContent = lowTempArray[n] + "°";
 
   const maxTemp = document.createElement("p");
-  maxTemp.textContent = highTempArray[n] + "°"
+  maxTemp.textContent = highTempArray[n] + "°";
+
+  const barContainer = document.createElement("div");
+  barContainer.classList.add("bar-container");
+  //barContainer.textContent = "--------";
+
+  const barBackground = document.createElement("div");
+  barBackground.classList.add("bar-background");
+
+  const barFilled = document.createElement("div");
+  barFilled.classList.add("bar-filled");
+
+  const currentIndicator = document.createElement("div");
+  currentIndicator.classList.add("current-temp-indicator");
+
+  // Calculate dynamic values
+  const highTemp = highTempArray[n];
+  const lowTemp = lowTempArray[n];
+  const range = highTemp - lowTemp;
+
+  const containerWidth = 100; // Total width of the container in percentage
+
+  // Calculate bar width as a percentage of the total range
+  const barWidth =
+    (range / (Math.max(...highTempArray) - Math.min(...lowTempArray))) *
+    containerWidth;
+  barFilled.style.width = `${barWidth}%`;
+
+  // Optionally, position the current indicator dynamically
+  const currentTemp = highTemp + lowTemp; // Replace with actual current temp if available
+  const currentPosition = ((currentTemp - lowTemp) / range) * containerWidth;
+  currentIndicator.style.left = `${currentPosition}%`;
+
+  if (n === 0) {
+    currentIndicator.classList.add("visible");
+  }
+
+  // Append bar components
+  barContainer.appendChild(barBackground);
+  barContainer.appendChild(barFilled);
+  barContainer.appendChild(currentIndicator);
 
   dayDiv.appendChild(day);
   dayDiv.appendChild(weatherIcon);
   dayDiv.appendChild(minTemp);
-  dayDiv.appendChild(graph);
+  dayDiv.appendChild(barContainer);
   dayDiv.appendChild(maxTemp);
 
   elementToAppendTo.appendChild(dayDiv);
 }
 
 export { dailyForecast };
+
