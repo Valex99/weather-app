@@ -16,6 +16,8 @@ export function windMap() {
   // 2. Div that holds img and title
   const iconTitleDiv = document.createElement("div");
   iconTitleDiv.classList.add("icon-title-div");
+  iconTitleDiv.classList.add("wind-map-icon-title-div");
+
 
   // 2.2 Hourly forecast icon + header
   const windImage = document.createElement("img");

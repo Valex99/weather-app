@@ -41,7 +41,7 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 255, 0.404);
+  background-color: #256caf;
 }
 
 .double-widget {

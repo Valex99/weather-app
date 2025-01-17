@@ -8,6 +8,9 @@ const API =
 const API1 =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 
+const API2 =
+  "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
+
 // Location api KEY (openCage geocoder)
 const myKey = "06992bbeb6774b539da6dcc27fecae94";
 const lat = 45.7743;
@@ -26,7 +29,7 @@ export async function fetchWeather() {
 
   if (!weatherFetchPromise) {
     console.log("Fetching new weather data...");
-    weatherFetchPromise = fetch(API1)
+    weatherFetchPromise = fetch(API2)
       .then((response) => response.json())
       .then((data) => {
         cachedWeatherData = data; // Cache the fetched data
@@ -47,6 +50,11 @@ export async function fetchWeather() {
 export async function getCurrentTemp() {
   const data = await fetchWeather();
   return data.current.temperature_2m;
+}
+
+export async function getFeelsLikeTemp() {
+  const data = await fetchWeather();
+  return Math.round(data.current.apparent_temperature)
 }
 
 export async function getCurrentWeatherCode() {
