@@ -1,8 +1,9 @@
-import "../styles/sunset-precipitation.css";
+import "../styles/visibility-humidity.css";
 import eyeIcon from "../project-icons/eye.png";
 import humidityIcon from "../project-icons/waves.png";
 import { content } from "./local-weather";
 import { moon } from "./full-moon";
+import { getHumidity, getDewPoint } from "../logic";
 
 export function createParentContainer2() {
   const parentContainer = document.createElement("div");
@@ -68,7 +69,21 @@ function humidity(parentContainer) {
 
   // 3 Content div
   const humidityContent = document.createElement("div");
-  humidityContent.classList.add("placeholder-div");
+
+  const humidityValue = document.createElement("div");
+  humidityValue.classList.add("feels-like-temp");
+
+  const humidityDescription = document.createElement("div");
+  humidityDescription.classList.add("humidity-description");
+
+  Promise.all([getHumidity(), getDewPoint()]).then(([humidity, dewPoint]) => {
+    humidityValue.textContent = humidity + "%";
+
+    humidityDescription.textContent = `The dew point is ${dewPoint}° right now`;
+  });
+  // Append content elements
+  humidityContent.appendChild(humidityValue);
+  humidityContent.appendChild(humidityDescription);
 
   humidityDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(humidityImage);

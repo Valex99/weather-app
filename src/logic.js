@@ -2,16 +2,15 @@
 let cachedWeatherData = null; // Cache to store the API response
 let weatherFetchPromise = null; // Cache to store the ongoing fetch promise
 
-const API =
-  "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,wind_speed_10m&minutely_15=temperature_2m,is_day&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin";
-
+const API = "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14"
 const API1 =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 
 const API2 =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 
-const API3 = "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14"
+const API3 =
+  "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 // Location api KEY (openCage geocoder)
 const myKey = "06992bbeb6774b539da6dcc27fecae94";
 const lat = 45.7743;
@@ -30,7 +29,7 @@ export async function fetchWeather() {
 
   if (!weatherFetchPromise) {
     console.log("Fetching new weather data...");
-    weatherFetchPromise = fetch(API3)
+    weatherFetchPromise = fetch(API)
       .then((response) => response.json())
       .then((data) => {
         cachedWeatherData = data; // Cache the fetched data
@@ -200,7 +199,23 @@ export async function getUvIndex() {
 export async function getPrecipitation() {
   const data = await fetchWeather();
 
-  return data.current.precipitation
+  return data.current.precipitation;
+}
+
+export async function getHumidity() {
+  const data = await fetchWeather();
+
+  return data.current.relative_humidity_2m;
+}
+
+export async function getDewPoint() {
+  const data = await fetchWeather();
+
+  const currentHour = await getCurrentTime();
+
+  const currentHourInt = parseInt(currentHour);
+
+  return Math.round(data.hourly.dew_point_2m[currentHourInt])
 }
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
