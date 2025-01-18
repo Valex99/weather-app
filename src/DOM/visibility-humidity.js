@@ -3,7 +3,7 @@ import eyeIcon from "../project-icons/eye.png";
 import humidityIcon from "../project-icons/waves.png";
 import { content } from "./local-weather";
 import { moon } from "./full-moon";
-import { getHumidity, getDewPoint } from "../logic";
+import { getVisibility, getHumidity, getDewPoint } from "../logic";
 
 export function createParentContainer2() {
   const parentContainer = document.createElement("div");
@@ -37,7 +37,22 @@ function visibility(parentContainer) {
 
   // 3 Content div
   const visibilityContent = document.createElement("div");
-  visibilityContent.classList.add("placeholder-div");
+
+  const visibilityValue = document.createElement("div");
+  visibilityValue.classList.add("feels-like-temp");
+
+  getVisibility().then((visibility) => {
+    visibilityValue.textContent = Math.round(visibility / 1000) + " km"
+  })
+
+  const visibilityDescription = document.createElement("div");
+  visibilityDescription.classList.add("humidity-description");
+  visibilityDescription.textContent = "Perfectly clear view."
+
+
+  // Append content elements
+  visibilityContent.appendChild(visibilityValue)
+  visibilityContent.appendChild(visibilityDescription)
 
   visibilityDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(eyeImage);

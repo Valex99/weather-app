@@ -217,6 +217,16 @@ export async function getDewPoint() {
 
   return Math.round(data.hourly.dew_point_2m[currentHourInt])
 }
+
+export async function getVisibility() {
+  const data = await fetchWeather();
+
+  const currentHour = await getCurrentTime();
+
+  const currentHourInt = parseInt(currentHour);
+
+  return Math.round(data.hourly.visibility[currentHourInt])
+}
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
 
