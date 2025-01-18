@@ -3,6 +3,7 @@ import sunsetIcon from "../project-icons/sunset.png";
 import waterDropIcon from "../project-icons/water.png";
 import { content } from "./local-weather";
 import { createParentContainer2 } from "./visibility-humidity";
+import { getPrecipitation } from "../logic";
 
 export function createParentContainer1() {
   const parentContainer = document.createElement("div");
@@ -68,7 +69,28 @@ function precipitation(parentContainer) {
 
   // 3 Content div
   const precipitationContent = document.createElement("div");
-  precipitationContent.classList.add("placeholder-div");
+
+  const precipitationValue = document.createElement("div");
+  precipitationValue.classList.add("feels-like-temp");
+
+  const precipitationDay = document.createElement("div");
+  precipitationDay.classList.add("precipitation-day");
+  precipitationDay.textContent = "Today"
+
+const precipitationDescription = document.createElement("div");
+precipitationDescription.classList.add("precipitation-description");
+// Auto fix this
+precipitationDescription.textContent = "Nex expected is 3mm on Wed"
+
+  getPrecipitation().then((precipitation) => {
+    precipitationValue.textContent = precipitation + " mm";
+  });
+
+  // Append content elements
+  precipitationContent.appendChild(precipitationValue);
+  precipitationContent.appendChild(precipitationDay);
+  precipitationContent.appendChild(precipitationDescription);
+
 
   precipitationDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(waterImage);

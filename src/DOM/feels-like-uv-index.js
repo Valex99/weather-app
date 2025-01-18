@@ -160,8 +160,8 @@ function uvIndex(parentContainer) {
   //uvIndexText.textContent = "Low";
 
   getUvIndex().then((value) => {
-    uvIndex.textContent = value;
-    console.log("value: ",value);
+    uvIndex.textContent = Math.round(value);
+    //console.log("value: ", value);
 
     if (value >= 0 && value <= 2) {
       uvIndexText.textContent = "Low";
@@ -177,7 +177,7 @@ function uvIndex(parentContainer) {
       uvIndexText.textContent = "Invalid UV Index"; // Optional, handles unexpected values
     }
 
-    updateUvHorizontalBar(value)
+    updateUvHorizontalBar(value);
   });
 
   const uvHorizontalBar = document.createElement("div");
@@ -204,7 +204,7 @@ function uvIndex(parentContainer) {
 
 function updateUvHorizontalBar(uvIndex) {
   const uvHorizontalBar = document.querySelector(".uv-horizontal-bar");
-  
+
   // Create the indicator if it doesn't exist
   let uvIndicator = uvHorizontalBar.querySelector(".uv-indicator");
   if (!uvIndicator) {

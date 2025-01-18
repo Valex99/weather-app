@@ -11,6 +11,7 @@ const API1 =
 const API2 =
   "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14";
 
+const API3 = "https://api.open-meteo.com/v1/forecast?latitude=45.7743&longitude=14.2153&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m&hourly=temperature_2m,relative_humidity_2m,precipitation_probability,rain,showers,weather_code,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14"
 // Location api KEY (openCage geocoder)
 const myKey = "06992bbeb6774b539da6dcc27fecae94";
 const lat = 45.7743;
@@ -29,7 +30,7 @@ export async function fetchWeather() {
 
   if (!weatherFetchPromise) {
     console.log("Fetching new weather data...");
-    weatherFetchPromise = fetch(API2)
+    weatherFetchPromise = fetch(API3)
       .then((response) => response.json())
       .then((data) => {
         cachedWeatherData = data; // Cache the fetched data
@@ -194,6 +195,12 @@ export async function getUvIndex() {
 
   //console.log("last",data.hourly.uv_index[parseInt(currentHour)]);
   return data.hourly.uv_index[currentHourInt];
+}
+
+export async function getPrecipitation() {
+  const data = await fetchWeather();
+
+  return data.current.precipitation
 }
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
