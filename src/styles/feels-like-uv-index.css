@@ -19,7 +19,6 @@
 
 .description {
     font-size: 14px;
-    font-weight: bold;
 }
 
 /* Slider indicator */
@@ -74,3 +73,34 @@
   }
 
   
+  /* Horizontal bar */
+  /* styles/uv-index.css */
+
+.uv-horizontal-bar {
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(
+    to right,
+    #00ff00, /* Green (Low) */
+    #ffff00, /* Yellow (Moderate) */
+    #ffa500, /* Orange (High) */
+    #ff0000, /* Red (Very High) */
+    #800080  /* Purple (Extreme) */
+  );
+  position: relative;
+  margin-top: 10px;
+  overflow: hidden;
+  margin-bottom: 5PX;
+}
+
+.uv-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}

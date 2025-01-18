@@ -161,6 +161,7 @@ function uvIndex(parentContainer) {
 
   getUvIndex().then((value) => {
     uvIndex.textContent = value;
+    console.log("value: ",value);
 
     if (value >= 0 && value <= 2) {
       uvIndexText.textContent = "Low";

@@ -54,7 +54,7 @@ export async function getCurrentTemp() {
 
 export async function getFeelsLikeTemp() {
   const data = await fetchWeather();
-  return Math.round(data.current.apparent_temperature)
+  return Math.round(data.current.apparent_temperature);
 }
 
 export async function getCurrentWeatherCode() {
@@ -190,9 +190,10 @@ export async function getUvIndex() {
   const data = await fetchWeather();
 
   const currentHour = await getCurrentTime();
+  const currentHourInt = parseInt(currentHour);
 
-  console.log("last",data.hourly.uv_index[parseInt(currentHour)]);
-  return data.hourly.uv_index[currentHour]
+  //console.log("last",data.hourly.uv_index[parseInt(currentHour)]);
+  return data.hourly.uv_index[currentHourInt];
 }
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
