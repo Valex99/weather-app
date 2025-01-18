@@ -1,7 +1,8 @@
+import "../styles/averages-pressure.css";
 import chartIcon from "../project-icons/chart.png";
 import pressureIcon from "../project-icons/pressure.png";
 import { content } from "./local-weather";
-
+import { getDailyHigh } from "../logic";
 
 export function createParentContainer3() {
   const parentContainer = document.createElement("div");
@@ -35,7 +36,51 @@ function averages(parentContainer) {
 
   // 3 Content div
   const averagesContent = document.createElement("div");
-  averagesContent.classList.add("placeholder-div");
+
+  //
+  const averagesTemp = document.createElement("div");
+  averagesTemp.classList.add("feels-like-temp");
+
+  const averagesText = document.createElement("div");
+  averagesText.classList.add("averages-text");
+  averagesText.textContent = "above average daily high";
+
+  const today = document.createElement("div");
+  today.classList.add("today-average");
+  today.textContent = "Today";
+
+  const todayHigh = document.createElement("p");
+  todayHigh.classList.add("high-temp");
+
+  getDailyHigh().then((dailyHigh) => {
+    todayHigh.textContent = ` H:${dailyHigh}°`;
+
+    // Hardcoded it
+    if (dailyHigh - 3 > 0) {
+      averagesTemp.textContent = `+${dailyHigh - 3}°`;
+    } else if (dailyHigh - 3 === 0) {
+      averagesTemp.textContent = `${dailyHigh - 3}°`;
+    } else {
+      averagesTemp.textContent = `${dailyHigh - 3}°`;
+    }
+  });
+
+  const average = document.createElement("div");
+  average.classList.add("today-average");
+  average.textContent = "Average";
+
+  const averageHigh = document.createElement("p");
+  averageHigh.classList.add("high-temp");
+  averageHigh.textContent = "H:3°";
+
+  today.appendChild(todayHigh);
+  average.appendChild(averageHigh);
+
+  // Append content elements
+  averagesContent.appendChild(averagesTemp);
+  averagesContent.appendChild(averagesText);
+  averagesContent.appendChild(today);
+  averagesContent.appendChild(average);
 
   averagesDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(averagesImage);

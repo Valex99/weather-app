@@ -1,6 +1,6 @@
 import { content } from "./local-weather";
 import mapIcon from "../project-icons/map-outline.png";
-import menuIcon from "../project-icons/menu-icon.png";
+import menuIcon from "../project-icons/list.png";
 import "../styles/footer.css";
 
 export function createFooter() {

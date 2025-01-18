@@ -5,7 +5,7 @@
   left: 0;
   width: 100vw;
   height: 5rem;
-  background-color: rgb(42, 124, 165);
+  background: linear-gradient(to bottom, #0887c2, #588dbe, #5da2bd, #88dce7);
   display: flex;
   gap: 1rem;
   z-index: 1000;
@@ -13,6 +13,7 @@
 
 .footer-icon {
   height: 2rem;
+  filter: invert(100%);
 }
 
 .dots-menu {

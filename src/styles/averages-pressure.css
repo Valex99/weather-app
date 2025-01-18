@@ -1,0 +1,18 @@
+.averages-text {
+    padding-bottom: 10px;
+}
+
+.today-average {
+    color: rgba(255, 255, 255, 0.549);
+    display: flex;
+    font-size: 14px;
+}
+
+.high-temp {
+    font-weight: bold;
+    color: white;
+    margin-left: auto;
+    margin-right: 0;
+    font-size: 14px;
+
+}
