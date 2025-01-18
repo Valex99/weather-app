@@ -90,13 +90,12 @@
   );
   position: relative;
   margin-top: 10px;
-  overflow: hidden;
   margin-bottom: 5PX;
 }
 
 .uv-indicator {
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   background-color: white;
   border-radius: 50%;
   position: absolute;

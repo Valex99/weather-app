@@ -176,6 +176,8 @@ function uvIndex(parentContainer) {
     } else {
       uvIndexText.textContent = "Invalid UV Index"; // Optional, handles unexpected values
     }
+
+    updateUvHorizontalBar(value)
   });
 
   const uvHorizontalBar = document.createElement("div");
@@ -198,4 +200,22 @@ function uvIndex(parentContainer) {
 
   //content.appendChild(uvIndexDiv);
   parentContainer.appendChild(uvIndexDiv);
+}
+
+function updateUvHorizontalBar(uvIndex) {
+  const uvHorizontalBar = document.querySelector(".uv-horizontal-bar");
+  
+  // Create the indicator if it doesn't exist
+  let uvIndicator = uvHorizontalBar.querySelector(".uv-indicator");
+  if (!uvIndicator) {
+    uvIndicator = document.createElement("div");
+    uvIndicator.classList.add("uv-indicator");
+    uvHorizontalBar.appendChild(uvIndicator);
+  }
+
+  // Map UV Index (0 to 11+) to percentage (0% to 100%)
+  const uvIndexPercentage = Math.min((uvIndex / 11) * 100, 100);
+
+  // Position the indicator
+  uvIndicator.style.left = `${uvIndexPercentage}%`;
 }
