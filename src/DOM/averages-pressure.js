@@ -3,6 +3,7 @@ import chartIcon from "../project-icons/chart.png";
 import pressureIcon from "../project-icons/pressure.png";
 import { content } from "./local-weather";
 import { getDailyHigh } from "../logic";
+import pressureWidget from "../project-icons/pressure-widget.png";
 
 export function createParentContainer3() {
   const parentContainer = document.createElement("div");
@@ -111,7 +112,13 @@ function pressure(parentContainer) {
 
   // 3 Content div
   const pressureContent = document.createElement("div");
-  pressureContent.classList.add("placeholder-div");
+  pressureContent.classList.add("pressure-content")
+
+  const pressureImg = document.createElement("img");
+  pressureImg.classList.add("pressure-img")
+  pressureImg.src = pressureWidget
+
+  pressureContent.appendChild(pressureImg);
 
   pressureDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(pressureImage);
@@ -122,3 +129,6 @@ function pressure(parentContainer) {
   //content.appendChild(feelsLikeDiv);
   parentContainer.appendChild(pressureDiv);
 }
+
+
+// Image used for pressure -> fix this later

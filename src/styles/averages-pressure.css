@@ -1,18 +1,32 @@
 .averages-text {
-    padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .today-average {
-    color: rgba(255, 255, 255, 0.549);
-    display: flex;
-    font-size: 14px;
+  color: rgba(255, 255, 255, 0.549);
+  display: flex;
+  font-size: 14px;
 }
 
 .high-temp {
-    font-weight: bold;
-    color: white;
-    margin-left: auto;
-    margin-right: 0;
-    font-size: 14px;
-
+  font-weight: bold;
+  color: white;
+  margin-left: auto;
+  margin-right: 0;
+  font-size: 14px;
 }
+
+/* Pressure */
+.pressure-content {
+  display: flex;
+  justify-content: center;
+
+  /*  Use gradient */
+}
+
+.pressure-img {
+  height: 120px;
+  opacity: 0.75;
+}
+
+/*#2D89CB*/

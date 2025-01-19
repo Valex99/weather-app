@@ -6,7 +6,6 @@
   font-family: "SF Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Helvetica, Arial, sans-serif;
   color: white;
-
 }
 
 #content {
@@ -41,7 +40,10 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  background-color: #256caf;
+  /*background-color: #256caf; ORIGINAL COLOR   */
+  /* Color picker on pressure screenshot */
+  /* #2B89cb*/
+  background-color: #2d89cbe6;
 }
 
 .double-widget {
@@ -50,7 +52,8 @@
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
-  background-color: #256caf;
+  /*background-color: #256caf;*/
+  background-color: #2d89cbe6;
 }
 
 .single-widget-container {
