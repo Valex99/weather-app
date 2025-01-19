@@ -3,7 +3,7 @@ import sunsetIcon from "../project-icons/sunset.png";
 import waterDropIcon from "../project-icons/water.png";
 import { content } from "./local-weather";
 import { createParentContainer2 } from "./visibility-humidity";
-import { getPrecipitation } from "../logic";
+import { getSunsetTime, getPrecipitation, getSunriseTime } from "../logic";
 
 export function createParentContainer1() {
   const parentContainer = document.createElement("div");
@@ -21,6 +21,7 @@ function sunset(parentContainer) {
   // 1. Main div
   const sunsetDiv = document.createElement("div");
   sunsetDiv.classList.add("single-widget");
+  sunsetDiv.classList.add("sunset-widget");
 
   // 2. Div that holds img and title
   const iconTitleDiv = document.createElement("div");
@@ -37,7 +38,20 @@ function sunset(parentContainer) {
 
   // 3 Content div
   const sunsetContent = document.createElement("div");
-  sunsetContent.classList.add("placeholder-div");
+
+  const sunsetTime = document.createElement("div");
+  sunsetTime.classList.add("feels-like-temp");
+
+  const sunriseTime = document.createElement("div");
+  sunriseTime.classList.add("sunrise-time")
+
+  Promise.all([getSunsetTime(), getSunriseTime()]).then(([sunset, sunrise]) => {
+    sunsetTime.textContent = sunset;
+    sunriseTime.textContent = `Sunrise: ${sunrise}`;
+  });
+
+  sunsetContent.appendChild(sunsetTime);
+  sunsetContent.appendChild(sunriseTime);
 
   sunsetDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(sunsetImage);
@@ -75,12 +89,12 @@ function precipitation(parentContainer) {
 
   const precipitationDay = document.createElement("div");
   precipitationDay.classList.add("precipitation-day");
-  precipitationDay.textContent = "Today"
+  precipitationDay.textContent = "Today";
 
-const precipitationDescription = document.createElement("div");
-precipitationDescription.classList.add("precipitation-description");
-// Auto fix this
-precipitationDescription.textContent = "Nex expected is 3mm on Wed"
+  const precipitationDescription = document.createElement("div");
+  precipitationDescription.classList.add("precipitation-description");
+  // Auto fix this
+  precipitationDescription.textContent = "Nex expected is 3mm on Wed";
 
   getPrecipitation().then((precipitation) => {
     precipitationValue.textContent = precipitation + " mm";
@@ -90,7 +104,6 @@ precipitationDescription.textContent = "Nex expected is 3mm on Wed"
   precipitationContent.appendChild(precipitationValue);
   precipitationContent.appendChild(precipitationDay);
   precipitationContent.appendChild(precipitationDescription);
-
 
   precipitationDiv.appendChild(iconTitleDiv);
   iconTitleDiv.appendChild(waterImage);

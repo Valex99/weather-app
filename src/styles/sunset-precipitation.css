@@ -1,5 +1,10 @@
 .precipitation-day {
-    font-size: 20px;
-    padding-top: 3px;
-    padding-bottom: 18px;
+  font-size: 20px;
+  padding-top: 3px;
+  padding-bottom: 18px;
+}
+
+.sunrise-time {
+    font-size: 16px;
+    padding-top: 64px;
 }

@@ -256,12 +256,25 @@ export async function getGustsSpeed() {
   return Math.round(data.current.wind_gusts_10m);
 }
 
- export async function getWindDirection() {
-   const data = await fetchWeather();
+export async function getWindDirection() {
+  const data = await fetchWeather();
 
-   return data.current.wind_direction_10m
- }
+  return data.current.wind_direction_10m;
+}
 
+export async function getSunriseTime() {
+  const data = await fetchWeather();
+
+  return data.daily.sunrise[0].slice(-5);
+  // Show sunset for today if hour is greater than todays sunset, show sunset for tomorrow.
+}
+
+export async function getSunsetTime() {
+  const data = await fetchWeather();
+
+  return data.daily.sunset[0].slice(-5);
+
+}
 // Use lindter for your code
 // 4) Maybe create a class in logic .js
 
