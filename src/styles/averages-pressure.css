@@ -20,13 +20,26 @@
 .pressure-content {
   display: flex;
   justify-content: center;
+  position: relative;
 
   /*  Use gradient */
 }
 
 .pressure-img {
   height: 120px;
-  opacity: 0.75;
 }
 
 /*#2D89CB*/
+/* Experomnmtal */
+.pressure-value {
+  position: absolute;
+  top :50px;
+  height: 24px;
+  width: 65px;
+  z-index: 1000000000;
+  background-color: #338BCD;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+}

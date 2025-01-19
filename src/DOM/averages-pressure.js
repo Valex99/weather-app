@@ -2,7 +2,7 @@ import "../styles/averages-pressure.css";
 import chartIcon from "../project-icons/chart.png";
 import pressureIcon from "../project-icons/pressure.png";
 import { content } from "./local-weather";
-import { getDailyHigh } from "../logic";
+import { getDailyHigh, getCurrentPressure } from "../logic";
 import pressureWidget from "../project-icons/pressure-widget.png";
 
 export function createParentContainer3() {
@@ -112,11 +112,21 @@ function pressure(parentContainer) {
 
   // 3 Content div
   const pressureContent = document.createElement("div");
-  pressureContent.classList.add("pressure-content")
+  pressureContent.classList.add("pressure-content");
 
   const pressureImg = document.createElement("img");
-  pressureImg.classList.add("pressure-img")
-  pressureImg.src = pressureWidget
+  pressureImg.classList.add("pressure-img");
+  pressureImg.src = pressureWidget;
+
+  const pressureValue = document.createElement("div");
+  pressureValue.classList.add("pressure-value");
+
+
+getCurrentPressure().then((pressure) => {
+  pressureValue.textContent = pressure;
+})
+
+  pressureContent.appendChild(pressureValue);
 
   pressureContent.appendChild(pressureImg);
 
@@ -129,6 +139,5 @@ function pressure(parentContainer) {
   //content.appendChild(feelsLikeDiv);
   parentContainer.appendChild(pressureDiv);
 }
-
 
 // Image used for pressure -> fix this later
