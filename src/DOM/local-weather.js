@@ -2,13 +2,17 @@
 import { hourlyForecast } from "./hourly-forecast";
 import { createFooter } from "./footer";
 import "../styles/local-weather.css";
+import { getWeatherConditions } from "../weather-conditions/weather-conditions";
 
 // Experimaental
 import {
   getCurrentTemp,
   getCurrentWeatherCode,
-  getDailyHighAndLow,
+  getDailyHigh,
+  getDailyLow,
   getLocationName,
+  isDay,
+  getCurrentTime,
 } from "../logic";
 
 const content = document.getElementById("content");
@@ -41,32 +45,54 @@ function localWeather() {
   const highLowTemp = document.createElement("p");
   highLowTemp.classList.add("high-low-temp");
 
-  getLocationName().then((location) => {
-    cityName.textContent = location;
-  });
+  // getLocationName().then((location) => {
+  //   cityName.textContent = location;
+  // });
 
-  //cityName.textContent = "Po";
+  Promise.all([
+    getLocationName(),
+    getCurrentTemp(),
+    getCurrentWeatherCode(),
+    getDailyHigh(),
+    getDailyLow(),
+    isDay(),
+    getCurrentTime(),
+  ]).then(
+    ([
+      location,
+      currentTemp,
+      weatherCode,
+      maxTemp,
+      minTemp,
+      isDayArray,
+      currentTime,
+    ]) => {
+      cityName.textContent = location;
+      //console.log(location);
+      temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
+      //console.log(Math.round(currentTemp));
+      highLowTemp.textContent = `H: ${maxTemp}° L: ${minTemp}°`;
 
-  getCurrentTemp().then((currentTemp) => {
-    temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
-  });
+      weather.textContent = getWeatherConditions(weatherCode, isDayArray[currentTime]
+      );
 
-  getCurrentWeatherCode().then((weatherCode) => {
-    let currentWeather = null;
-    if (weatherCode === 1 || weatherCode === 2 || weatherCode === 3) {
-      currentWeather = "Partly Cloudy";
-      // Add all other values
-    } else {
-      currentWeather = "IDK";
+      //weather.textContent = getWeatherConditions(weatherCode, isDayArray[currentTime]);
     }
-    weather.textContent = currentWeather;
-  });
+  );
 
-  getDailyHighAndLow().then(({ maxTemp, minTemp }) => {
-    highLowTemp.textContent = `H: ${Math.round(maxTemp)}° L: ${Math.round(
-      minTemp
-    )}°`;
-  });
+  // getCurrentTemp().then((currentTemp) => {
+  //   temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
+  // });
+
+  // getCurrentWeatherCode().then((weatherCode) => {
+  //   weather.textContent = getWeatherConditions(weatherCode);
+  // });
+
+  // getDailyHighAndLow().then(({ maxTemp, minTemp }) => {
+  //   highLowTemp.textContent = `H: ${Math.round(maxTemp)}° L: ${Math.round(
+  //     minTemp
+  //   )}°`;
+  // });
 
   weatherDetails.appendChild(temperature);
   weatherDetails.appendChild(weather);

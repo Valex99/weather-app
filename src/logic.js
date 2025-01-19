@@ -235,6 +235,12 @@ export async function getDailyHigh() {
   return Math.round(data.daily.temperature_2m_max[0]);
 }
 
+export async function getDailyLow() {
+  const data = await fetchWeather();
+
+  return Math.round(data.daily.temperature_2m_min[0]);
+}
+
 export async function getCurrentPressure() {
   const data = await fetchWeather();
   const currentHour = await getCurrentTime();
@@ -273,10 +279,14 @@ export async function getSunsetTime() {
   const data = await fetchWeather();
 
   return data.daily.sunset[0].slice(-5);
-
 }
-// Use lindter for your code
-// 4) Maybe create a class in logic .js
 
-// 1) Find current time
-// 2) Find index of current time in the array .hourly.temperature_2m / time
+
+// Use lindter for your code
+// Create weather codes that output current weather
+// Add images for each weather type (re create that weather codes if statement)
+// Add current city into array
+
+// FIGURE OUT HOW TO CHANGE LOCATION
+// Connect the dots (at the bottom of the page (use carousel as help))
+// Fix responsive design
