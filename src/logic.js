@@ -281,12 +281,11 @@ export async function getSunsetTime() {
   return data.daily.sunset[0].slice(-5);
 }
 
-
 // Use lindter for your code
-// Create weather codes that output current weather
 // Add images for each weather type (re create that weather codes if statement)
-// Add current city into array
+// Add current city into array and each other as well
 
 // FIGURE OUT HOW TO CHANGE LOCATION
 // Connect the dots (at the bottom of the page (use carousel as help))
 // Fix responsive design
+// Add sunset and sunrise in hourly forecast

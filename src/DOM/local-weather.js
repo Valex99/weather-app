@@ -73,26 +73,12 @@ function localWeather() {
       //console.log(Math.round(currentTemp));
       highLowTemp.textContent = `H: ${maxTemp}° L: ${minTemp}°`;
 
-      weather.textContent = getWeatherConditions(weatherCode, isDayArray[currentTime]
+      weather.textContent = getWeatherConditions(
+        weatherCode,
+        isDayArray[currentTime]
       );
-
-      //weather.textContent = getWeatherConditions(weatherCode, isDayArray[currentTime]);
     }
   );
-
-  // getCurrentTemp().then((currentTemp) => {
-  //   temperature.textContent = `${Math.round(currentTemp)}°`; // Assign the resolved value
-  // });
-
-  // getCurrentWeatherCode().then((weatherCode) => {
-  //   weather.textContent = getWeatherConditions(weatherCode);
-  // });
-
-  // getDailyHighAndLow().then(({ maxTemp, minTemp }) => {
-  //   highLowTemp.textContent = `H: ${Math.round(maxTemp)}° L: ${Math.round(
-  //     minTemp
-  //   )}°`;
-  // });
 
   weatherDetails.appendChild(temperature);
   weatherDetails.appendChild(weather);
@@ -112,34 +98,7 @@ function localWeather() {
 
   // Add event listener for scroll to hide content
 
-  /*
-  document.addEventListener("scroll", () => {
-    const tempMainDiv = document.querySelector(".temp-main-div");
-    const widgets = document.querySelectorAll(
-      ".double-widget, .single-widget-container"
-    );
 
-    // tempMainDivBottom: Calculates the bottom edge of the green box.
-    const tempMainDivBottom = tempMainDiv.getBoundingClientRect().bottom;
-
-    widgets.forEach((widget) => {
-      // widgetTop: Checks the top position of each double-widget.
-      const widgetTop = widget.getBoundingClientRect().top;
-
-      // Adjust opacity based on position relative to temp-main-div
-      // 	3.	Fade-Out Logic: If the widget’s top is within or below the green box, reduce opacity.
-      if (widgetTop < tempMainDivBottom) {
-        widget.style.opacity = Math.max(
-          0,
-          (widgetTop - tempMainDivBottom) / 100
-        ); // Smooth fade-out
-      } else {
-        widget.style.opacity = 1; // Fully visible
-      }
-    });
-  });
-  // Fix position sticky as well (local-weather.css .temp-main-div)
-*/
   // Create Footer
   createFooter();
 

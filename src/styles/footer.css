@@ -14,6 +14,7 @@
 .footer-icon {
   height: 2rem;
   filter: invert(100%);
+  cursor: pointer;
 }
 
 .dots-menu {
