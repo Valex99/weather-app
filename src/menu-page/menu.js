@@ -60,13 +60,8 @@ export function showMenuPage() {
   // Add event listener on input
   searchInput.addEventListener("input", () => {
     // Call function to fetch data
-    // Set timeout (delay when user is typing)
-
-    // Experiment
-
+    locations.textContent = "";
     handleInput(searchInput.value);
-    //getNewLocation(searchInput.value);
-    //console.log(searchInput.value);
   });
 
   /*
@@ -172,3 +167,12 @@ function createLocationDiv(parentElement) {
   parentElement.appendChild(locationChild);
 }
 // Add locations (CREATE ARRAY);
+
+export function showSearchLocations(arrayLength) {
+  for (let i = 0; i < arrayLength; i++) {
+    console.log("sup");
+    // create div ->
+    // div text content = position in array
+    // Append to gird
+  }
+}

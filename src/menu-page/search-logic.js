@@ -1,3 +1,5 @@
+import { showSearchLocations } from "./menu";
+
 // Function to be called on each input
 
 // Open Weather API website link (key)
@@ -6,7 +8,8 @@
 // Link
 // https://developers.google.com/maps/documentation/geocoding/overview
 
-const locationsArray = [];
+const selectedLocationsArray = [];
+const searchLocationsArray = [];
 
 const geocodingBaseAPI = "http://api.openweathermap.org/geo/1.0/direct";
 const myApiKey = "2a3113322fc8a6e2b5019a13a59d6ab9";
@@ -29,7 +32,21 @@ export async function getNewLocation(searchInput) {
     const data = await response.json();
 
     console.log("Fetched Data:", data);
-    return data; // Optional: Return the data if needed elsewhere
+
+    // Empty array first (on each input)
+    while (searchLocationsArray.length !== 0) {
+      searchLocationsArray.pop();
+    }
+
+    // Add locations to array
+    for (let i = 0; i < 5; i++) {
+      searchLocationsArray.push(data[i].name);
+    }
+
+    console.log(searchLocationsArray);
+
+    //return data; // Optional: Return the data if needed elsewhere
+    return data;
   } catch (error) {
     console.error("Error fetching location data:", error.message);
   }

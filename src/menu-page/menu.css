@@ -74,7 +74,6 @@
 /* Locations grid */
 .locations {
   margin-top: 10px;
-  border: 1px solid red;
 
   display: grid;
   grid-template-columns: 1fr; /* Single column */
@@ -82,7 +81,6 @@
 }
 
 .location-child {
-  background-color: rgb(201, 216, 216);
   height: 120px;
   width: 100%;
   border-radius: 20px;
