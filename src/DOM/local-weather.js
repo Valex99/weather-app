@@ -1,4 +1,3 @@
-// 1
 import { hourlyForecast } from "./hourly-forecast";
 import { createFooter } from "./footer";
 import "../styles/local-weather.css";
