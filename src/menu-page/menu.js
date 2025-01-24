@@ -2,7 +2,8 @@ import "./menu.css";
 import menuIcon from "../project-icons/horizontal-circle.png";
 import searchIcon from "../project-icons/magnify.png";
 import micIcon from "../project-icons/microphone.png";
-import { getNewLocation } from "./search-logic";
+//import { getNewLocation } from "./search-logic";
+import { handleInput } from "./search-logic";
 
 export function showMenuPage() {
   const menuContainer = document.createElement("div");
@@ -60,7 +61,12 @@ export function showMenuPage() {
   searchInput.addEventListener("input", () => {
     // Call function to fetch data
     // Set timeout (delay when user is typing)
-    getNewLocation();
+
+    // Experiment
+
+    handleInput(searchInput.value);
+    //getNewLocation(searchInput.value);
+    //console.log(searchInput.value);
   });
 
   /*
@@ -119,12 +125,8 @@ function createLocationDiv(parentElement) {
   locationChild.style.backgroundRepeat = "no-repeat"; // Prevents repeating
   locationChild.style.backgroundAttachment = "fixed"; // Keeps the image in place
 
-
-
-
-
   const cityTempTime = document.createElement("div");
-  cityTempTime.classList.add("city-temp-time")
+  cityTempTime.classList.add("city-temp-time");
 
   const cityTime = document.createElement("div");
   cityTime.classList.add("city-time");
@@ -133,18 +135,16 @@ function createLocationDiv(parentElement) {
   city.classList.add("city");
 
   const time = document.createElement("p");
-  time.classList.add("time")
-
+  time.classList.add("time");
 
   const temp = document.createElement("p");
-  temp.classList.add("temp")
+  temp.classList.add("temp");
 
   const weatherHighLow = document.createElement("div");
   weatherHighLow.classList.add("weather-high-low");
 
   const weather = document.createElement("p");
-  weather.classList.add("weather-p")
-
+  weather.classList.add("weather-p");
 
   const highLow = document.createElement("p");
 
@@ -171,5 +171,4 @@ function createLocationDiv(parentElement) {
   // Append it to location
   parentElement.appendChild(locationChild);
 }
-
 // Add locations (CREATE ARRAY);
