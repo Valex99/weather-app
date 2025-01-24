@@ -116,7 +116,6 @@
 .temp-location {
   font-size: 40px;
   font-weight: 400;
-
 }
 
 .weather-high-low {
@@ -129,9 +128,14 @@
   font-size: 14px;
 }
 
-/**/
+/* Fix this */
 .location-search-child {
-    height: 10px;
-    width: 100%;
-    padding: 15px;
-  }
+  height: 30px;
+  width: 100%;
+  padding: 15px;
+  cursor: pointer;
+}
+
+.location-search-child:hover {
+    color: gray;
+}

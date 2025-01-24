@@ -64,44 +64,12 @@ export function showMenuPage() {
     handleInput(searchInput.value);
   });
 
-  /*
-  // Create childs to append to locations grid
-  const location1 = document.createElement("div")
-  location1.classList.add("location-child")
-
-  const location2 = document.createElement("div")
-  location2.classList.add("location-child")
-
-  const location3 = document.createElement("div")
-  location3.classList.add("location-child")
-
-  const location4 = document.createElement("div")
-  location4.classList.add("location-child")
-
-
-  const location5 = document.createElement("div")
-  location5.classList.add("location-child")
-
-  const location6 = document.createElement("div")
-  location6.classList.add("location-child")
-*/
-
   menuImgDiv.appendChild(menuImg);
 
   menuContainer.appendChild(menuImgDiv);
   menuContainer.appendChild(headerDiv);
   menuContainer.appendChild(searchBar);
   menuContainer.appendChild(locations);
-
-  // Append childs to grid container
-  /*
-  locations.appendChild(location1)
-  locations.appendChild(location2)
-  locations.appendChild(location3)
-  locations.appendChild(location4)
-  locations.appendChild(location5)
-  locations.appendChild(location6)
-*/
 
   createLocationDiv(locations);
 
@@ -169,21 +137,28 @@ function createLocationDiv(parentElement) {
 // Add locations (CREATE ARRAY);
 
 export function showSearchLocations(searchLocationsArray) {
-  const locationGrid = document.querySelector(".locations")
-
+  const locationGrid = document.querySelector(".locations");
 
   for (let i = 0; i < searchLocationsArray.length; i++) {
-
     // create div ->
     const locationDiv = document.createElement("div");
     locationDiv.classList.add("location-search-child");
 
     // div text content = position in array
-    locationDiv.textContent = searchLocationsArray[i].name + ", " + searchLocationsArray[i].country;
-
+    locationDiv.textContent =
+      searchLocationsArray[i].name + ", " + searchLocationsArray[i].country;
 
     // Append to gird
-    locationGrid.appendChild(locationDiv)
+    locationGrid.appendChild(locationDiv);
 
+    // Add event listener to each
+    locationGrid.addEventListener("click", () => {
+      console.log("selected");
+
+      // Clear destinations
+      locationGrid.textContent = "";
+
+      // Call function that displays location window
+    });
   }
 }

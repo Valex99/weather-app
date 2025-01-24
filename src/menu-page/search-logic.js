@@ -1,4 +1,12 @@
 import { showSearchLocations } from "./menu";
+import {
+  getLocationName,
+  getCurrentTime,
+  getCurrentTemp,
+  getCurrentWeatherCode,
+  getDailyHigh,
+  getDailyLow,
+} from "../logic";
 
 // Function to be called on each input
 
@@ -8,7 +16,11 @@ import { showSearchLocations } from "./menu";
 // Link
 // https://developers.google.com/maps/documentation/geocoding/overview
 
-const selectedLocationsArray = [];
+const mainWeatherArray = [];
+
+// Gets called right at the top
+addDefaultLocationToArray();
+
 const searchLocationsArray = [];
 
 const geocodingBaseAPI = "http://api.openweathermap.org/geo/1.0/direct";
@@ -43,15 +55,15 @@ export async function getNewLocation(searchInput) {
       //searchLocationsArray.push(data[i].name);
 
       const location = {
-        name: data[i].name, // Replace with the actual property for the name
-        longitude: data[i].lon, // Replace with actual property for longitude
-        latitude: data[i].lat, // Replace with actual property for latitude
-        country: data[i].country, // Replace with actual property for country
+        name: data[i].name,
+        longitude: data[i].lon,
+        latitude: data[i].lat,
+        country: data[i].country,
       };
       searchLocationsArray.push(location);
     }
 
-    console.log("SEARCH LOACTIONS ARRAY: ",searchLocationsArray);
+    console.log("SEARCH LOACTIONS ARRAY: ", searchLocationsArray);
 
     showSearchLocations(searchLocationsArray);
 
@@ -64,13 +76,14 @@ export async function getNewLocation(searchInput) {
   }
 }
 
-export function AddLocation(city, time, temp, weather, highLow, lon, lat) {
+export function AddLocation(city, time, temp, weather, low, high, lon, lat) {
   this.city = city;
   this.time = time;
   this.temp = temp;
   this.weather = weather;
-  this.highLow = highLow;
-  // coordinates
+  this.low = low;
+  this.high = high;
+  // coordinates‚
   this.lon = lon;
   this.lat = lat;
 }
@@ -84,4 +97,21 @@ export function handleInput(searchInput) {
     console.log("Fetching data for:", searchInput);
     getNewLocation(searchInput);
   }, 1000); // 500ms delay
+}
+
+async function addDefaultLocationToArray() {
+  const defaulLocation = new AddLocation(
+    await getLocationName(),
+    await getCurrentTime(), // Time needs to be fixed
+    await getCurrentTemp(),
+    await getCurrentWeatherCode(),
+    await getDailyLow(),
+    await getDailyHigh(),
+    "XD", // Fix this
+    "XD" // And this
+  );
+
+  mainWeatherArray.push(defaulLocation);
+
+  console.log("Main weather array: ", mainWeatherArray);
 }
