@@ -133,7 +133,7 @@ function createLocationDiv(parentElement) {
   time.classList.add("time");
 
   const temp = document.createElement("p");
-  temp.classList.add("temp");
+  temp.classList.add("temp-location");
 
   const weatherHighLow = document.createElement("div");
   weatherHighLow.classList.add("weather-high-low");
@@ -168,11 +168,22 @@ function createLocationDiv(parentElement) {
 }
 // Add locations (CREATE ARRAY);
 
-export function showSearchLocations(arrayLength) {
-  for (let i = 0; i < arrayLength; i++) {
-    console.log("sup");
+export function showSearchLocations(searchLocationsArray) {
+  const locationGrid = document.querySelector(".locations")
+
+
+  for (let i = 0; i < searchLocationsArray.length; i++) {
+
     // create div ->
+    const locationDiv = document.createElement("div");
+    locationDiv.classList.add("location-search-child");
+
     // div text content = position in array
+    locationDiv.textContent = searchLocationsArray[i].name + ", " + searchLocationsArray[i].country;
+
+
     // Append to gird
+    locationGrid.appendChild(locationDiv)
+
   }
 }

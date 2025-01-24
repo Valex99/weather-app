@@ -40,10 +40,22 @@ export async function getNewLocation(searchInput) {
 
     // Add locations to array
     for (let i = 0; i < 5; i++) {
-      searchLocationsArray.push(data[i].name);
+      //searchLocationsArray.push(data[i].name);
+
+      const location = {
+        name: data[i].name, // Replace with the actual property for the name
+        longitude: data[i].lon, // Replace with actual property for longitude
+        latitude: data[i].lat, // Replace with actual property for latitude
+        country: data[i].country, // Replace with actual property for country
+      };
+      searchLocationsArray.push(location);
     }
 
-    console.log(searchLocationsArray);
+    console.log("SEARCH LOACTIONS ARRAY: ",searchLocationsArray);
+
+    showSearchLocations(searchLocationsArray);
+
+    console.log("called");
 
     //return data; // Optional: Return the data if needed elsewhere
     return data;

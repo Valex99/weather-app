@@ -24,7 +24,7 @@ const lon = 14.2153;
 // 4.	Once the fetch completes, it caches the data and resets weatherFetchPromise so future calls know no fetch is ongoing.
 export async function fetchWeather() {
   if (cachedWeatherData) {
-    console.log("Using cached weather data:", cachedWeatherData);
+    //console.log("Using cached weather data:", cachedWeatherData);
     return cachedWeatherData; // Return the cached data if available
   }
 
@@ -94,7 +94,7 @@ export async function getHourlyForecast() {
   const timeIndex = data.hourly.time.findIndex(
     (time) => time === updatedDateTime
   );
-  console.log("Time index: ", timeIndex);
+  //console.log("Time index: ", timeIndex);
 
   const dailyTempArray = data.hourly.temperature_2m.slice(
     timeIndex,
@@ -157,7 +157,6 @@ export async function getCurrentDay() {
   const data = await fetchWeather();
 
   const currentTime = data.current.time;
-  console.log();
 
   return currentTime;
 }
@@ -165,7 +164,7 @@ export async function getCurrentDay() {
 export async function getTenDayForecast() {
   const data = await fetchWeather();
   const dailyWeatherCodes = data.daily.weather_code;
-  console.log("Daily Weather Codes: ", dailyWeatherCodes);
+  //console.log("Daily Weather Codes: ", dailyWeatherCodes);
 
   return dailyWeatherCodes;
 }

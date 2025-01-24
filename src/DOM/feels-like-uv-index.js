@@ -44,16 +44,8 @@ function feelsLike(parentContainer) {
   const feelsLikeTemp = document.createElement("div");
   feelsLikeTemp.classList.add("feels-like-temp");
 
-  // getFeelsLikeTemp().then((apparentTemp) => {
-  //   feelsLikeTemp.textContent = apparentTemp + "°";
-  // });
-
   const actualTemp = document.createElement("div");
   actualTemp.classList.add("actual-temp");
-
-  // getCurrentTemp().then((currentTemp) => {
-  //   actualTemp.textContent = "Actual: " + Math.round(currentTemp) + "°";
-  // });
 
   // Shows how feels like temp compares to actual temp
   // Left side represents lowest perceived temp and right side represents actual temp
@@ -120,7 +112,7 @@ function feelsLike(parentContainer) {
       barFilled.style.width = `${fillPercentage}%`;
 
       // Update slider position
-      console.log(apparentTemp, currentTemp);
+      //console.log(apparentTemp, currentTemp);
 
       sliderIndicator.style.left = `${fillPercentage}%`;
       sliderValue.textContent = `${apparentTemp - Math.round(currentTemp)} °`;

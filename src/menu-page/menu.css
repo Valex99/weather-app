@@ -113,7 +113,7 @@
   font-weight: bold;
 }
 
-.temp {
+.temp-location {
   font-size: 40px;
   font-weight: 400;
 
@@ -128,3 +128,10 @@
   flex-grow: 1;
   font-size: 14px;
 }
+
+/**/
+.location-search-child {
+    height: 10px;
+    width: 100%;
+    padding: 15px;
+  }
