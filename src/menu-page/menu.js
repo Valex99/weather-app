@@ -3,7 +3,12 @@ import menuIcon from "../project-icons/horizontal-circle.png";
 import searchIcon from "../project-icons/magnify.png";
 import micIcon from "../project-icons/microphone.png";
 //import { getNewLocation } from "./search-logic";
-import { handleInput, mainWeatherArray } from "./search-logic";
+import {
+  fetchWeatherSearch,
+  handleInput,
+  mainWeatherArray,
+  getWeatherWindowData,
+} from "./search-logic";
 
 export function showMenuPage() {
   const menuContainer = document.createElement("div");
@@ -83,7 +88,6 @@ function createLocationDiv(parentElement, index) {
   // ADD A UNIQUE INDENTIFIER USING DATASETS
   locationChild.dataset.index = index;
   locationChild.dataset.name = mainWeatherArray[index].name; // Optional, store city name
-
 
   // Adding background image to the project - create a function later
   locationChild.style.backgroundImage = "url('./background-images/sunny.jpg')";
@@ -177,17 +181,48 @@ export function showSearchLocations(searchLocationsArray) {
       console.log("Clicked Index:", index);
       console.log("Clicked City:", name);
 
-
       // Go into array at index[index]
-      const clickedLat = searchLocationsArray[index].latitude
-      const clickedLon = searchLocationsArray[index].longitude
+      const clickedLat = searchLocationsArray[index].latitude;
+      const clickedLon = searchLocationsArray[index].longitude;
 
       console.log("Clicked LAT:", clickedLat);
       console.log("Clicked LON:", clickedLon);
 
+      let lat = parseFloat(clickedLat.toFixed(4));
+      let lon = parseFloat(clickedLon.toFixed(4));
+
+      console.log(lat, lon);
+
+      const newAPI = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,rain,showers,weather_code,pressure_msl,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14`;
+
       // Now that you have coordinates, fetch weather data for thoes coordinates
+      // Create another fetch weather function
+      // Fetch the weather data
+      fetchWeatherSearch(newAPI)
+        .then((data) => {
+          console.log("Fetched weather data: ", data);
 
+          // Now call getWeatherWindowData with the same API and data
+          return getWeatherWindowData(newAPI); // This will return the desired weather data
+        })
+        .then(
+          ({ currentTemp, currentTime, weatherCode, dailyLow, dailyHigh }) => {
+            // Handle the returned values from getWeatherWindowData
+            console.log("Current Temp:", currentTemp);
+            console.log("Current Time:", currentTime);
+            console.log("Weather Code:", weatherCode);
+            console.log("Daily Low:", dailyLow);
+            console.log("Daily High:", dailyHigh);
 
+            // Now you can use these values as needed
+          }
+        )
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+
+      // Now call all necssary functions to get all you need for creating new weather window
+      // Location name should  console.log("Clicked City:", name);
 
       // Fetch weather data for selected location
       const selectedLocation = searchLocationsArray[index];
@@ -198,7 +233,6 @@ export function showSearchLocations(searchLocationsArray) {
 
       // Clear the location grid and display new locations
       locationGrid.textContent = "";
-
 
       for (let i = 0; i < mainWeatherArray.length; i++) {
         createLocationDiv(locationGrid, i);

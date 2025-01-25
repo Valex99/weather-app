@@ -18,6 +18,31 @@ import {
 // Link
 // https://developers.google.com/maps/documentation/geocoding/overview
 
+// CREATE ANOTHER FETCH WEATHER FUNCTION FOR EACH ADDED LOCATION
+export async function fetchWeatherSearch(api) {
+  console.log("Fetching new weather data...");
+  const response = await fetch(api);
+  const data = await response.json();
+
+  return data;
+}
+
+// Only call this once the data is loaded
+export async function getWeatherWindowData(api) {
+  const data = await fetchWeatherSearch(api);
+
+  const currentTemp = Math.round(data.current.temperature_2m);
+  const currentTime = data.current.time;
+  // This should call function for weather code right away
+  const weatherCode = data.current.weather_code;
+  const dailyLow = Math.round(data.daily.temperature_2m_min[0]);
+  const dailyHigh = Math.round(data.daily.temperature_2m_max[0]);
+
+  return { currentTemp, currentTime, weatherCode, dailyLow, dailyHigh };
+}
+
+///
+
 const mainWeatherArray = [];
 
 // Gets called right at the top
