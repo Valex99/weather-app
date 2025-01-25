@@ -80,7 +80,11 @@ function createLocationDiv(parentElement, index) {
   const locationChild = document.createElement("div");
   locationChild.classList.add("location-child");
 
-  // ADD BACKGROUND
+  // ADD A UNIQUE INDENTIFIER USING DATASETS
+  locationChild.dataset.index = index;
+  locationChild.dataset.name = mainWeatherArray[index].name; // Optional, store city name
+
+
   // Adding background image to the project - create a function later
   locationChild.style.backgroundImage = "url('./background-images/sunny.jpg')";
   locationChild.style.backgroundSize = "cover"; // Ensures the image covers the div
@@ -140,47 +144,65 @@ function createLocationDiv(parentElement, index) {
 export function showSearchLocations(searchLocationsArray) {
   const locationGrid = document.querySelector(".locations");
 
+  // Clear existing content in case this is called multiple times
+  locationGrid.textContent = "";
+
+  // Add search location elements
   for (let i = 0; i < searchLocationsArray.length; i++) {
-    // create div ->
+    // Create div
     const locationDiv = document.createElement("div");
     locationDiv.classList.add("location-search-child");
 
-    // div text content = position in array
-    locationDiv.textContent =
-      searchLocationsArray[i].name + ", " + searchLocationsArray[i].country;
+    // Add text content
+    locationDiv.textContent = searchLocationsArray[i].name;
 
-    // Append to gird
+    // Add dataset for easier identification
+    locationDiv.dataset.index = i;
+    locationDiv.dataset.name = searchLocationsArray[i].name;
+
+    // Append to grid
     locationGrid.appendChild(locationDiv);
+  }
 
-    // Add event listener to each
-    locationGrid.addEventListener("click", (event) => {
-      console.log("selected");
-      const clicked = event.target.textContent;
-      console.log("Clicked on: ", clicked);
+  // Add a single event listener to the parent container (event delegation)
+  locationGrid.addEventListener("click", (event) => {
+    // Check if the clicked element is a location-search-child
+    const clickedElement = event.target.closest(".location-search-child");
 
-      // FInd intex of matching project at searchLocations array
-      //const indexOf =
+    if (clickedElement) {
+      // Access data attributes
+      const index = clickedElement.dataset.index;
+      const name = clickedElement.dataset.name;
 
-      // Select coordinates at given index and pass them into fetch weather function
+      console.log("Clicked Index:", index);
+      console.log("Clicked City:", name);
 
-      // When new location is selected (clicked on)
-      // fetch data for those specific coordinates
 
-      // It should immeditley add it to mainArray
+      // Go into array at index[index]
+      const clickedLat = searchLocationsArray[index].latitude
+      const clickedLon = searchLocationsArray[index].longitude
 
-      // It should call function to fech data for that specific coordinates
-      // When data is returned, weather window should be created.
-      // GGs
+      console.log("Clicked LAT:", clickedLat);
+      console.log("Clicked LON:", clickedLon);
 
-      // Clear destinations
+      // Now that you have coordinates, fetch weather data for thoes coordinates
+
+
+
+      // Fetch weather data for selected location
+      const selectedLocation = searchLocationsArray[index];
+      console.log("Selected Location Data:", selectedLocation);
+
+      // Example: Add the selected location to mainWeatherArray
+      mainWeatherArray.push(selectedLocation);
+
+      // Clear the location grid and display new locations
       locationGrid.textContent = "";
 
-      // Call function that displays location window
-      const length = mainWeatherArray.length;
 
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < mainWeatherArray.length; i++) {
         createLocationDiv(locationGrid, i);
       }
-    });
-  }
+    }
+  });
 }
