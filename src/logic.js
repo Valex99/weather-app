@@ -122,6 +122,12 @@ export async function getCurrentTime() {
   return hourOnly;
 }
 
+export async function getCurrentHourAndMinute() {
+  const data = await fetchWeather();
+
+  return data.current.time.slice(-5);
+}
+
 export async function getWeatherCode() {
   const data = await fetchWeather();
   const currentHour = await getCurrentTime();

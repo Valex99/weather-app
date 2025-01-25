@@ -8,6 +8,7 @@ import {
   handleInput,
   mainWeatherArray,
   getWeatherWindowData,
+  AddLocation,
 } from "./search-logic";
 
 export function showMenuPage() {
@@ -215,28 +216,43 @@ export function showSearchLocations(searchLocationsArray) {
             console.log("Daily High:", dailyHigh);
 
             // Now you can use these values as needed
+            const newLocation = new AddLocation(
+              name,
+              currentTime,
+              currentTemp,
+              weatherCode,
+              dailyLow,
+              dailyHigh,
+              lat,
+              lon
+            );
+
+            mainWeatherArray.push(newLocation);
+
+            locationGrid.textContent = "";
+
+            for (let i = 0; i < mainWeatherArray.length; i++) {
+              createLocationDiv(locationGrid, i);
+            }
           }
         )
         .catch((error) => {
           console.error("Error:", error);
         });
 
-      // Now call all necssary functions to get all you need for creating new weather window
-      // Location name should  console.log("Clicked City:", name);
+      // CALL FUNCTION TO CREATE NEW WEATHER WINDOW AND PASS IN THOSE VARIABLES
 
       // Fetch weather data for selected location
-      const selectedLocation = searchLocationsArray[index];
-      console.log("Selected Location Data:", selectedLocation);
+      //const selectedLocation = searchLocationsArray[index];
+      //console.log("Selected Location Data:", selectedLocation);
 
       // Example: Add the selected location to mainWeatherArray
-      mainWeatherArray.push(selectedLocation);
+      //mainWeatherArray.push(selectedLocation);
+      console.log("MAIN WEATHER ARRAY UPDATED: ", mainWeatherArray);
 
       // Clear the location grid and display new locations
-      locationGrid.textContent = "";
 
-      for (let i = 0; i < mainWeatherArray.length; i++) {
-        createLocationDiv(locationGrid, i);
-      }
+
     }
   });
 }

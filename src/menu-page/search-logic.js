@@ -8,7 +8,10 @@ import {
   getDailyLow,
   getLatitude,
   getLongitude,
+  getCurrentHourAndMinute
 } from "../logic";
+
+import { getWeatherConditions } from "../weather-conditions/weather-conditions";
 
 // Function to be called on each input
 
@@ -32,11 +35,12 @@ export async function getWeatherWindowData(api) {
   const data = await fetchWeatherSearch(api);
 
   const currentTemp = Math.round(data.current.temperature_2m);
-  const currentTime = data.current.time;
+  const currentTime = data.current.time.slice(-5);
   // This should call function for weather code right away
-  const weatherCode = data.current.weather_code;
+  const weatherCode = getWeatherConditions(data.current.weather_code, true);
   const dailyLow = Math.round(data.daily.temperature_2m_min[0]);
   const dailyHigh = Math.round(data.daily.temperature_2m_max[0]);
+
 
   return { currentTemp, currentTime, weatherCode, dailyLow, dailyHigh };
 }
@@ -129,7 +133,7 @@ export function handleInput(searchInput) {
 async function addDefaultLocationToArray() {
   const defaulLocation = new AddLocation(
     await getLocationName(),
-    await getCurrentTime(), // Time needs to be fixed
+    await getCurrentHourAndMinute(),
     await getCurrentTemp(),
     await getCurrentWeatherCode(),
     await getDailyLow(),
@@ -137,6 +141,10 @@ async function addDefaultLocationToArray() {
     await getLatitude(),
     await getLongitude()
   );
+
+  //console.log("DEFAULT LOCATION: ", defaulLocation);
+  const weatherCode = getWeatherConditions(defaulLocation.weather);
+  defaulLocation.weather = weatherCode
 
   mainWeatherArray.push(defaulLocation);
 
