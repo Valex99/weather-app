@@ -3,7 +3,7 @@ import menuIcon from "../project-icons/horizontal-circle.png";
 import searchIcon from "../project-icons/magnify.png";
 import micIcon from "../project-icons/microphone.png";
 //import { getNewLocation } from "./search-logic";
-import { handleInput } from "./search-logic";
+import { handleInput, mainWeatherArray } from "./search-logic";
 
 export function showMenuPage() {
   const menuContainer = document.createElement("div");
@@ -111,12 +111,13 @@ function createLocationDiv(parentElement) {
 
   const highLow = document.createElement("p");
 
-  // Call constructor here
-  city.textContent = "Postojna";
-  time.textContent = "18:40";
-  temp.textContent = "8°";
-  weather.textContent = "Cloudy";
-  highLow.textContent = "H:11° L:3°";
+  // Call constructor here - dynamically fix index
+  city.textContent = mainWeatherArray[0].city;
+  //time.textContent = "18:40";
+  time.textContent = mainWeatherArray[0].time;
+  temp.textContent = Math.round(mainWeatherArray[0].temp) + "°";
+  weather.textContent = mainWeatherArray[0].weather;
+  highLow.textContent = `H:${mainWeatherArray[0].low}° L:${mainWeatherArray[0].high}°`;
   //
 
   weatherHighLow.appendChild(weather);
@@ -155,10 +156,21 @@ export function showSearchLocations(searchLocationsArray) {
     locationGrid.addEventListener("click", () => {
       console.log("selected");
 
+
+      // When new location is selected (clicked on)
+      // It should immeditley add it to mainArray
+      // It should call function to fech data for that specific coordinates
+      // When data is returned, weather window should be created.
+      // GGs
+
       // Clear destinations
       locationGrid.textContent = "";
 
       // Call function that displays location window
+      const length = mainWeatherArray.length;
+      console.log(length);
+
+      createLocationDiv(locationGrid);
     });
   }
 }

@@ -8,6 +8,7 @@ import {
   getDailyLow,
 } from "../logic";
 
+
 // Function to be called on each input
 
 // Open Weather API website link (key)
@@ -115,3 +116,5 @@ async function addDefaultLocationToArray() {
 
   console.log("Main weather array: ", mainWeatherArray);
 }
+
+export { mainWeatherArray }
