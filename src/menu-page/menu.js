@@ -71,12 +71,12 @@ export function showMenuPage() {
   menuContainer.appendChild(searchBar);
   menuContainer.appendChild(locations);
 
-  createLocationDiv(locations);
+  createLocationDiv(locations, 0);
 
   content.appendChild(menuContainer);
 }
 
-function createLocationDiv(parentElement) {
+function createLocationDiv(parentElement, index) {
   const locationChild = document.createElement("div");
   locationChild.classList.add("location-child");
 
@@ -112,12 +112,12 @@ function createLocationDiv(parentElement) {
   const highLow = document.createElement("p");
 
   // Call constructor here - dynamically fix index
-  city.textContent = mainWeatherArray[0].city;
+  city.textContent = mainWeatherArray[index].city;
   //time.textContent = "18:40";
-  time.textContent = mainWeatherArray[0].time;
-  temp.textContent = Math.round(mainWeatherArray[0].temp) + "°";
-  weather.textContent = mainWeatherArray[0].weather;
-  highLow.textContent = `H:${mainWeatherArray[0].low}° L:${mainWeatherArray[0].high}°`;
+  time.textContent = mainWeatherArray[index].time;
+  temp.textContent = Math.round(mainWeatherArray[index].temp) + "°";
+  weather.textContent = mainWeatherArray[index].weather;
+  highLow.textContent = `H:${mainWeatherArray[index].low}° L:${mainWeatherArray[0].high}°`;
   //
 
   weatherHighLow.appendChild(weather);
@@ -153,12 +153,21 @@ export function showSearchLocations(searchLocationsArray) {
     locationGrid.appendChild(locationDiv);
 
     // Add event listener to each
-    locationGrid.addEventListener("click", () => {
+    locationGrid.addEventListener("click", (event) => {
       console.log("selected");
+      const clicked = event.target.textContent;
+      console.log("Clicked on: ", clicked);
 
+      // FInd intex of matching project at searchLocations array
+      //const indexOf =
+
+      // Select coordinates at given index and pass them into fetch weather function
 
       // When new location is selected (clicked on)
+      // fetch data for those specific coordinates
+
       // It should immeditley add it to mainArray
+
       // It should call function to fech data for that specific coordinates
       // When data is returned, weather window should be created.
       // GGs
@@ -168,9 +177,10 @@ export function showSearchLocations(searchLocationsArray) {
 
       // Call function that displays location window
       const length = mainWeatherArray.length;
-      console.log(length);
 
-      createLocationDiv(locationGrid);
+      for (let i = 0; i < length; i++) {
+        createLocationDiv(locationGrid, i);
+      }
     });
   }
 }

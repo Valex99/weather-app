@@ -280,6 +280,17 @@ export async function getSunsetTime() {
   return data.daily.sunset[0].slice(-5);
 }
 
+export async function getLatitude() {
+  const data = await fetchWeather();
+
+  return data.latitude;
+}
+
+export async function getLongitude() {
+  const data = await fetchWeather();
+
+  return data.longitude;
+}
 // Use lindter for your code
 // Add images for each weather type (re create that weather codes if statement)
 // Add current city into array and each other as well

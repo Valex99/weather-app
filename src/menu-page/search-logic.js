@@ -6,8 +6,9 @@ import {
   getCurrentWeatherCode,
   getDailyHigh,
   getDailyLow,
+  getLatitude,
+  getLongitude,
 } from "../logic";
-
 
 // Function to be called on each input
 
@@ -85,8 +86,8 @@ export function AddLocation(city, time, temp, weather, low, high, lon, lat) {
   this.low = low;
   this.high = high;
   // coordinates‚
-  this.lon = lon;
   this.lat = lat;
+  this.lon = lon;
 }
 
 export function handleInput(searchInput) {
@@ -108,8 +109,8 @@ async function addDefaultLocationToArray() {
     await getCurrentWeatherCode(),
     await getDailyLow(),
     await getDailyHigh(),
-    "XD", // Fix this
-    "XD" // And this
+    await getLatitude(),
+    await getLongitude()
   );
 
   mainWeatherArray.push(defaulLocation);
@@ -117,4 +118,4 @@ async function addDefaultLocationToArray() {
   console.log("Main weather array: ", mainWeatherArray);
 }
 
-export { mainWeatherArray }
+export { mainWeatherArray };
