@@ -43,7 +43,6 @@ export async function getWeatherWindowData(api) {
   return { currentTemp, currentTime, weatherCode, dailyLow, dailyHigh };
 }
 
-///
 
 const mainWeatherArray = [];
 
@@ -105,7 +104,7 @@ export async function getNewLocation(searchInput) {
   }
 }
 
-export function AddLocation(city, time, temp, weather, low, high, lon, lat) {
+export function AddLocation(city, time, temp, weather, low, high, lat, lon) {
   this.city = city;
   this.time = time;
   this.temp = temp;

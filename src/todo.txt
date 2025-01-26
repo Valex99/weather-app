@@ -5,3 +5,7 @@ TODO:
 // 3. when clicked, get index of clicked loaction, and fetch data for that specific coordinates, and from data display everxthing
 
 // fix time zones
+
+// first
+// FIX LOCATION naME WHEN CLICKED on
+// Fix how you store data from weather loacaitions
