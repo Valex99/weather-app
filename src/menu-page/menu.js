@@ -2,7 +2,6 @@ import "./menu.css";
 import menuIcon from "../project-icons/horizontal-circle.png";
 import searchIcon from "../project-icons/magnify.png";
 import micIcon from "../project-icons/microphone.png";
-//import { getNewLocation } from "./search-logic";
 import {
   fetchWeatherSearch,
   handleInput,
@@ -145,6 +144,7 @@ function createLocationDiv(parentElement, index) {
 export function showSearchLocations(searchLocationsArray) {
   const locationGrid = document.querySelector(".locations");
 
+  // Clear existing locations
   locationGrid.textContent = "";
 
   for (let i = 0; i < searchLocationsArray.length; i++) {
@@ -161,13 +161,22 @@ export function showSearchLocations(searchLocationsArray) {
     locationGrid.appendChild(locationDiv);
   }
 
+  // VERY IMPORTANT LESSON -> REMOVE EVENT LISTENERS BEFORE ADDING NEW ONES
+  // Remove any existing event listeners by cloning the element
   // Add a single event listener to the parent container (event delegation)
-  locationGrid.addEventListener("click", (event) => {
+
+  // Remove any existing event listeners by cloning the element
+  const newLocationGrid = locationGrid.cloneNode(true);
+  locationGrid.parentNode.replaceChild(newLocationGrid, locationGrid);
+
+
+  newLocationGrid.addEventListener("click", (event) => {
+
     // Check if the clicked element is a location-search-child
     const clickedElement = event.target.closest(".location-search-child");
 
     if (clickedElement) {
-      // Access data attributes
+      // Access data attributes‚
       const index = clickedElement.dataset.index;
       const name = clickedElement.dataset.name;
 
@@ -225,16 +234,18 @@ export function showSearchLocations(searchLocationsArray) {
               mainWeatherArray
             );
             clearSearchArray();
-            console.log("Search Array cleared!");
-            locationGrid.textContent = "";
 
+            
             const searchInput = document.querySelector(".search-input");
             searchInput.placeholder = "Search for a city or airport";
             searchInput.value = "";
-
+            
+            console.log(mainWeatherArray.length);
+            
+            newLocationGrid.textContent = "";
 
             for (let i = 0; i < mainWeatherArray.length; i++) {
-              createLocationDiv(locationGrid, i);
+              createLocationDiv(newLocationGrid, i);
             }
           }
         )

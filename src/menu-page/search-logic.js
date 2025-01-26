@@ -66,9 +66,9 @@ export async function getNewLocation(searchInput) {
     const response = await fetch(geocodingAPI);
 
     // Check if the response is okay
-    if (!response.ok) {
-      throw new Error(`API Error: ${response.status}`);
-    }
+    //if (!response.ok) {
+    //  throw new Error(`API Error: ${response.status}`);
+    //}
 
     const data = await response.json();
 
