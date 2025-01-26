@@ -3,6 +3,7 @@ import mapIcon from "../project-icons/map-outline.png";
 import menuIcon from "../project-icons/list.png";
 import "../styles/footer.css";
 import { showMenuPage } from "../menu-page/menu";
+import { mainWeatherArray } from "../menu-page/search-logic";
 
 export function createFooter() {
   const footerDiv = document.createElement("div");

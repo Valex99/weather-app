@@ -80,7 +80,10 @@ export function showMenuPage() {
   menuContainer.appendChild(searchBar);
   menuContainer.appendChild(locations);
 
-  createLocationDiv(locations, 0);
+  //createLocationDiv(locations, 0);
+  for (let i = 0; i < mainWeatherArray.length; i++) {
+    createLocationDiv(locations, i)
+  }
 
   content.appendChild(menuContainer);
 }
