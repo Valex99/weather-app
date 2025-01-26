@@ -12,10 +12,14 @@ import {
   getLocationName,
   isDay,
   getCurrentTime,
+  // Import new function to get location dynamically
+  autoUpdateLocationName,
 } from "../logic";
 
 const content = document.getElementById("content");
 content.classList.add("content");
+
+// Default location coordinates
 
 export function addBackgorundImg() {
   // Adding background image to the project - create a function later
@@ -28,7 +32,7 @@ export function addBackgorundImg() {
 
 addBackgorundImg();
 
-function localWeather() {
+function localWeather(locationAPI) {
   const tempMainDiv = document.createElement("div");
   tempMainDiv.classList.add("temp-main-div");
 
@@ -82,6 +86,14 @@ function localWeather() {
       );
     }
   );
+
+  //const locationApi = `https://api.opencagedata.com/geocode/v1/json?q=45.7743+14.2153&key=06992bbeb6774b539da6dcc27fecae94`;
+
+  autoUpdateLocationName(locationAPI).then((locationName) => {
+    console.log(locationName, "LOCATION NAME");
+    cityName.innerHTML = locationName;
+
+  });
 
   weatherDetails.appendChild(temperature);
   weatherDetails.appendChild(weather);

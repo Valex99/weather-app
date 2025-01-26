@@ -8,8 +8,6 @@ let weatherFetchPromise = null; // Cache to store the ongoing fetch promise
 
 // Location api KEY (openCage geocoder)
 //const myKey = "06992bbeb6774b539da6dcc27fecae94";
-const lat = 45.7743;
-const lon = 14.2153;
 
 // fetchWeatherData explanation
 // 1.	If cachedWeatherData exists, it immediately returns it without fetching.
@@ -17,6 +15,27 @@ const lon = 14.2153;
 // 3.	Only if no fetch is in progress (weatherFetchPromise === null) does it initiate a new fetch.
 // 4.	Once the fetch completes, it caches the data and resets weatherFetchPromise so future calls know no fetch is ongoing.
 
+// Default coordinates
+const lat = 45.7743;
+const lon = 14.2153;
+
+// Should be passed into a function as a variable
+//const locationApi = `https://api.opencagedata.com/geocode/v1/json?q=${lat}+${lon}&key=06992bbeb6774b539da6dcc27fecae94`;
+//const locationApi = `https://api.opencagedata.com/geocode/v1/json?q=45.7743+14.2153&key=06992bbeb6774b539da6dcc27fecae94`;
+
+export async function autoUpdateLocationName(locationAPI) {
+  const response = await fetch(locationAPI);
+  const data = await response.json();
+  console.log(data);
+
+  console.log("NEW LOCATION: ", data.results[0].components.city);
+
+  if (data.results[0].components.city === undefined) {
+    return data.results[0].components.town;
+  } else {
+    return data.results[0].components.city;
+  }
+}
 
 // EXPERIMENT
 export async function fetchWeatherCaller(api) {
@@ -27,8 +46,6 @@ export async function fetchWeatherCaller(api) {
 
   fetchWeather(api);
 }
-
-
 
 export async function fetchWeather(api) {
   if (cachedWeatherData) {
