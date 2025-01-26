@@ -1,14 +1,13 @@
 import { showSearchLocations } from "./menu";
 import {
   getLocationName,
-  getCurrentTime,
   getCurrentTemp,
   getCurrentWeatherCode,
   getDailyHigh,
   getDailyLow,
   getLatitude,
   getLongitude,
-  getCurrentHourAndMinute
+  getCurrentHourAndMinute,
 } from "../logic";
 
 import { getWeatherConditions } from "../weather-conditions/weather-conditions";
@@ -40,7 +39,6 @@ export async function getWeatherWindowData(api) {
   const weatherCode = getWeatherConditions(data.current.weather_code, true);
   const dailyLow = Math.round(data.daily.temperature_2m_min[0]);
   const dailyHigh = Math.round(data.daily.temperature_2m_max[0]);
-
 
   return { currentTemp, currentTime, weatherCode, dailyLow, dailyHigh };
 }
@@ -144,11 +142,18 @@ async function addDefaultLocationToArray() {
 
   //console.log("DEFAULT LOCATION: ", defaulLocation);
   const weatherCode = getWeatherConditions(defaulLocation.weather);
-  defaulLocation.weather = weatherCode
+  defaulLocation.weather = weatherCode;
 
   mainWeatherArray.push(defaulLocation);
 
   console.log("Main weather array: ", mainWeatherArray);
+}
+
+export function clearSearchArray() {
+  while (searchLocationsArray.length !== 0) {
+    searchLocationsArray.pop()
+  }
+  console.log(searchLocationsArray);
 }
 
 export { mainWeatherArray };

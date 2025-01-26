@@ -9,6 +9,7 @@ import {
   mainWeatherArray,
   getWeatherWindowData,
   AddLocation,
+  clearSearchArray,
 } from "./search-logic";
 
 export function showMenuPage() {
@@ -93,9 +94,9 @@ function createLocationDiv(parentElement, index) {
   // Adding background image to the project - create a function later
   locationChild.style.backgroundImage = "url('./background-images/sunny.jpg')";
   locationChild.style.backgroundSize = "cover"; // Ensures the image covers the div
-  locationChild.style.backgroundPosition = "35% -50px"; // Adjusts the horizontal position
+  locationChild.style.backgroundPosition = "35% -105px"; // Adjusts the horizontal position
   locationChild.style.backgroundRepeat = "no-repeat"; // Prevents repeating
-  locationChild.style.backgroundAttachment = "fixed"; // Keeps the image in place
+  locationChild.style.backgroundAttachment = "scroll"; // Keeps the image in place
 
   const cityTempTime = document.createElement("div");
   cityTempTime.classList.add("city-temp-time");
@@ -120,14 +121,11 @@ function createLocationDiv(parentElement, index) {
 
   const highLow = document.createElement("p");
 
-  // Call constructor here - dynamically fix index
   city.textContent = mainWeatherArray[index].city;
-  //time.textContent = "18:40";
   time.textContent = mainWeatherArray[index].time;
   temp.textContent = Math.round(mainWeatherArray[index].temp) + "°";
   weather.textContent = mainWeatherArray[index].weather;
-  highLow.textContent = `H:${mainWeatherArray[index].low}° L:${mainWeatherArray[0].high}°`;
-  //
+  highLow.textContent = `H:${mainWeatherArray[index].low}° L:${mainWeatherArray[index].high}°`;
 
   weatherHighLow.appendChild(weather);
   weatherHighLow.appendChild(highLow);
@@ -141,24 +139,18 @@ function createLocationDiv(parentElement, index) {
   locationChild.appendChild(cityTempTime);
   locationChild.appendChild(weatherHighLow);
 
-  // Append it to location
   parentElement.appendChild(locationChild);
 }
-// Add locations (CREATE ARRAY);
 
 export function showSearchLocations(searchLocationsArray) {
   const locationGrid = document.querySelector(".locations");
 
-  // Clear existing content in case this is called multiple times
   locationGrid.textContent = "";
 
-  // Add search location elements
   for (let i = 0; i < searchLocationsArray.length; i++) {
-    // Create div
     const locationDiv = document.createElement("div");
     locationDiv.classList.add("location-search-child");
 
-    // Add text content
     locationDiv.textContent = searchLocationsArray[i].name;
 
     // Add dataset for easier identification
@@ -228,8 +220,18 @@ export function showSearchLocations(searchLocationsArray) {
             );
 
             mainWeatherArray.push(newLocation);
-
+            console.log(
+              "MAIN WEATHER ARRAY AFTER ADDING SELECTED LOCATION: ",
+              mainWeatherArray
+            );
+            clearSearchArray();
+            console.log("Search Array cleared!");
             locationGrid.textContent = "";
+
+            const searchInput = document.querySelector(".search-input");
+            searchInput.placeholder = "Search for a city or airport";
+            searchInput.value = "";
+
 
             for (let i = 0; i < mainWeatherArray.length; i++) {
               createLocationDiv(locationGrid, i);
@@ -239,20 +241,6 @@ export function showSearchLocations(searchLocationsArray) {
         .catch((error) => {
           console.error("Error:", error);
         });
-
-      // CALL FUNCTION TO CREATE NEW WEATHER WINDOW AND PASS IN THOSE VARIABLES
-
-      // Fetch weather data for selected location
-      //const selectedLocation = searchLocationsArray[index];
-      //console.log("Selected Location Data:", selectedLocation);
-
-      // Example: Add the selected location to mainWeatherArray
-      //mainWeatherArray.push(selectedLocation);
-      console.log("MAIN WEATHER ARRAY UPDATED: ", mainWeatherArray);
-
-      // Clear the location grid and display new locations
-
-
     }
   });
 }
