@@ -1,6 +1,7 @@
 TODO:
 
-
 // fix time zones
-// dynamically create dots for each location inside main weather array
-
+// Fix / add dots
+// Add background Images
+// Add search menu
+// most important add responsive design
