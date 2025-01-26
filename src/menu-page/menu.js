@@ -11,6 +11,9 @@ import {
   clearSearchArray,
 } from "./search-logic";
 
+import { addBackgorundImg, localWeather } from "../DOM/local-weather";
+import { fetchWeather } from "../logic";
+
 export function showMenuPage() {
   const menuContainer = document.createElement("div");
   menuContainer.classList.add("menu-container");
@@ -139,6 +142,34 @@ function createLocationDiv(parentElement, index) {
   locationChild.appendChild(weatherHighLow);
 
   parentElement.appendChild(locationChild);
+
+  locationChild.addEventListener("click", (event) => {
+    console.log("Location child clicekd");
+    const clickedElement = event.target.closest(".location-child");
+
+    if (clickedElement) {
+      // Access data attributes‚
+      const index = clickedElement.dataset.index;
+      console.log("INDEX: ", index);
+
+      const lat = mainWeatherArray[index].lat;
+      const lon = mainWeatherArray[index].lon;
+
+      console.log(lat, lon);
+
+      const selectedLocationAPI = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,rain,showers,weather_code,pressure_msl,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14`;
+
+      fetchWeather(selectedLocationAPI).then(() => {
+
+        // Remove everything from content
+        const content = document.getElementById("content")
+        content.classList.remove("change-content");
+        content.textContent = "";
+        addBackgorundImg();
+        localWeather();
+      })
+    }
+  });
 }
 
 export function showSearchLocations(searchLocationsArray) {
@@ -169,9 +200,7 @@ export function showSearchLocations(searchLocationsArray) {
   const newLocationGrid = locationGrid.cloneNode(true);
   locationGrid.parentNode.replaceChild(newLocationGrid, locationGrid);
 
-
   newLocationGrid.addEventListener("click", (event) => {
-
     // Check if the clicked element is a location-search-child
     const clickedElement = event.target.closest(".location-search-child");
 
@@ -180,20 +209,18 @@ export function showSearchLocations(searchLocationsArray) {
       const index = clickedElement.dataset.index;
       const name = clickedElement.dataset.name;
 
-      console.log("Clicked Index:", index);
-      console.log("Clicked City:", name);
+      //console.log("Clicked Index:", index);
+      //console.log("Clicked City:", name);
 
       // Go into array at index[index]
       const clickedLat = searchLocationsArray[index].latitude;
       const clickedLon = searchLocationsArray[index].longitude;
 
-      console.log("Clicked LAT:", clickedLat);
-      console.log("Clicked LON:", clickedLon);
+      //console.log("Clicked LAT:", clickedLat);
+      //console.log("Clicked LON:", clickedLon);
 
       let lat = parseFloat(clickedLat.toFixed(4));
       let lon = parseFloat(clickedLon.toFixed(4));
-
-      console.log(lat, lon);
 
       const newAPI = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,precipitation,rain,weather_code,wind_speed_10m,wind_direction_10m,wind_gusts_10m&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,precipitation_probability,rain,showers,weather_code,pressure_msl,visibility,uv_index,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,daylight_duration,uv_index_max,precipitation_sum&timezone=Europe%2FBerlin&forecast_days=14`;
 
@@ -235,13 +262,10 @@ export function showSearchLocations(searchLocationsArray) {
             );
             clearSearchArray();
 
-            
             const searchInput = document.querySelector(".search-input");
             searchInput.placeholder = "Search for a city or airport";
             searchInput.value = "";
-            
-            console.log(mainWeatherArray.length);
-            
+
             newLocationGrid.textContent = "";
 
             for (let i = 0; i < mainWeatherArray.length; i++) {

@@ -17,12 +17,16 @@ import {
 const content = document.getElementById("content");
 content.classList.add("content");
 
-// Adding background image to the project - create a function later
-content.style.backgroundImage = "url('./background-images/sunny.jpg')";
-content.style.backgroundSize = "cover"; // Ensures the image covers the div
-content.style.backgroundPosition = "35% -50px"; // Adjusts the horizontal position
-content.style.backgroundRepeat = "no-repeat"; // Prevents repeating
-content.style.backgroundAttachment = "fixed"; // Keeps the image in place
+export function addBackgorundImg() {
+  // Adding background image to the project - create a function later
+  content.style.backgroundImage = "url('./background-images/sunny.jpg')";
+  content.style.backgroundSize = "cover"; // Ensures the image covers the div
+  content.style.backgroundPosition = "35% -50px"; // Adjusts the horizontal position
+  content.style.backgroundRepeat = "no-repeat"; // Prevents repeating
+  content.style.backgroundAttachment = "fixed"; // Keeps the image in place
+}
+
+addBackgorundImg();
 
 function localWeather() {
   const tempMainDiv = document.createElement("div");
@@ -96,7 +100,6 @@ function localWeather() {
   // Add event listener to close window
 
   // Add event listener for scroll to hide content
-
 
   // Create Footer
   createFooter();

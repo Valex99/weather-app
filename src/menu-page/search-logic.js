@@ -96,7 +96,7 @@ export async function getNewLocation(searchInput) {
 
     showSearchLocations(searchLocationsArray);
 
-    console.log("called");
+    //console.log("called");
 
     //return data; // Optional: Return the data if needed elsewhere
     return data;
