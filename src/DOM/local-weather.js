@@ -91,8 +91,7 @@ function localWeather(locationAPI) {
 
   autoUpdateLocationName(locationAPI).then((locationName) => {
     console.log(locationName, "LOCATION NAME");
-    cityName.innerHTML = locationName;
-
+    cityName.textContent = locationName;
   });
 
   weatherDetails.appendChild(temperature);

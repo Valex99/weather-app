@@ -32,11 +32,10 @@ export async function autoUpdateLocationName(locationAPI) {
 
   if (data.results[0].components.city === undefined) {
     return data.results[0].components.town;
-  } else {
+  } else  {
     return data.results[0].components.city;
-  }
+  } 
 }
-
 // EXPERIMENT
 export async function fetchWeatherCaller(api) {
   cachedWeatherData = null;
